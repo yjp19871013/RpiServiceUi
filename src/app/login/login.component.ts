@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User, LoginResponse } from './login.model';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
-import { JwtService } from '../jwt.service';
+import { JwtService } from './jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (response) => {
           this.errMsg = "";
-          this.jwtService.save(response.token);
+          this.jwtService.save(response.token, this.user);
           this.router.navigateByUrl("/");
         },
         (err) => {

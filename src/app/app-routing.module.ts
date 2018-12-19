@@ -5,17 +5,15 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginGuard } from './guard/login.guard';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
-
+const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
-  { path: '', canActivate: [LoginGuard], component: HomeComponent }
+  { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

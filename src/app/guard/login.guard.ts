@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JwtService } from '../jwt.service';
+import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -9,23 +9,13 @@ import { Router } from '@angular/router';
 })
 export class LoginGuard implements CanActivate {
 
-  constructor(private router: Router, private jwtService: JwtService) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    var hasLogin = this.checkLogin(state.url);
-    if (!hasLogin) {
+    if (!this.loginService.isLogin()) {
         this.router.navigateByUrl("/login")
-        return false;
-    }
-
-    return true;
-  }
-
-  checkLogin(url: string): boolean {
-    var jwt = this.jwtService.get();
-    if ("" == jwt) {
         return false;
     }
 

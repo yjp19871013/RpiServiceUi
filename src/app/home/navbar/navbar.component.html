@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+  <a class="navbar-brand" routerLink="/file-manage">树莓派服务系统</a>
+
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [class.active]="selectedItem.title == item.title " *ngFor="let item of items">
+        <a class="nav-link" routerLink="{{ item.link }}" (click)="selected(item)">{{ item.title }}</a>
+      </li>
+    </ul>
+
+    <form class="form-inline">
+      <span class="mr-2" style="color: white">欢迎, {{ user.email }}</span>
+      <a class="btn btn-outline-light" style="color: white" (click)="logout()">注销</a>
+    </form>
+  </div>
+
+</nav>
