@@ -12,7 +12,7 @@ import { User } from '../../login/login.model';
 export class NavbarComponent implements OnInit {
 
   items: NavbarItem[] = [
-    { title: "文件管理", link: "/file-manage" },
+    { title: "文件管理", link: "/file-manage" }
   ];
 
   selectedItem = this.items[0];
