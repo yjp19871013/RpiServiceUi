@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidateCodeResquest, RegisterRequest } from './register.model';
 import { RegisterService } from './register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
 
   errMsg = "";
 
-  constructor(private registerService: RegisterService) { }
+  constructor(private registerService: RegisterService,
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -41,13 +43,13 @@ export class RegisterComponent implements OnInit {
         if (err.status == 400) {
           this.errMsg = "请求参数错误";;
         } else if (err.status == 409) {
-          this.errMsg = "验证码已发送过";
+          this.errMsg = "该用户已存在";
         } else if (err.status == 500) {
           this.errMsg = "服务器内部错误";
         } else {
-          this.errMsg = "未知错误: " + err.status + err.error.message;
+          this.errMsg = "未知错误: " + err.status + " " + err.error.message;
         }
-      });;
+      });
   }
 
   register() {
@@ -66,12 +68,36 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    if (this.registerRequest.password1 != this.registerRequest.password2) {
+      this.errMsg = "确认密码不一致";
+      return;
+    }
+
     if (this.registerRequest.validateCode == "") {
       this.errMsg = "验证码为空";
       return;
     }
 
-    this.registerService.register(this.registerRequest);
+    this.registerService.register(this.registerRequest).subscribe(
+      (response) => {
+        this.errMsg = "";
+        this.router.navigateByUrl("/login");
+      },
+      (err) => {
+        if (err.status == 400) {
+          this.errMsg = "请求参数错误";
+        } else if (err.status == 404) {
+          this.errMsg = "验证码错误";
+        } else if (err.status == 406) {
+          this.errMsg = "确认密码不一致";
+        } else if (err.status == 409) {
+          this.errMsg = "验证码已发送过";
+        } else if (err.status == 500) {
+          this.errMsg = "服务器内部错误";
+        } else {
+          this.errMsg = "未知错误: " + err.status + err.error.message;
+        }
+      });
   }
 
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = "token";
-const EXP = 2 * 60 * 60 * 1000;
+//const EXP = 2 * 60 * 60 * 1000;
+const EXP = 2 * 1000;
 
 @Injectable({
   providedIn: 'root'
