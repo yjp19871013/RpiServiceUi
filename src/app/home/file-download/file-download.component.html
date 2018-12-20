@@ -1,3 +1,156 @@
-<div>
-  file-download works!
+<div class="m-4">
+  <div class="row justify-content-center">
+    <h5>添加任务</h5>
+  </div>
+  <div class="row justify-content-center">
+    <form class="form col-4">
+      <div class="form-group">
+        <input class="form-control" type="text" placeholder="请输入要下载的URL" name="url" autofocus="autofocus" [(ngModel)]="task.url" />
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" placeholder="请输入要保存的文件名" name="filename" autofocus="autofocus" [(ngModel)]="task.saveFilename" />
+      </div>
+    </form>
+  </div>
+
+  <div class="row justify-content-center mb-3">
+    <button type="button" class="btn btn-success col-3" (click)="addDownloadTask()">添加</button>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">
+          <input type="checkbox" id="chooseAll" name="chooseAll" (change)="onChooseAll()">
+          <label for="chooseAll">全选</label>
+        </th>
+        <th scope="col">URL</th>
+        <th scope="col">文件名</th>
+        <th scope="col">进度</th>
+        <th scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+        <td>http://www.baidu.com</td>
+        <td>aaaaaa.iso</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+        <td>
+          <a href="#">取消</a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+        <td>http://www.baiduaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com</td>
+        <td>aaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.iso</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+        <td>
+          <a href="#">取消</a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+        <td>http://www.baiduaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com</td>
+        <td>aaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.iso</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+        <td>
+          <a href="#">取消</a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+        <td>http://www.baiduaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com</td>
+        <td>aaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.iso</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+        <td>
+          <a href="#">取消</a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+        <td>http://www.baiduaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com</td>
+        <td>aaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.iso</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+        <td>
+          <a href="#">取消</a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+        <td>http://www.baiduaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com</td>
+        <td>aaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.iso</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+        <td>
+          <a href="#">取消</a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+        <td>http://www.baiduaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com</td>
+        <td>aaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.iso</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+        <td>
+          <a href="#">取消</a>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+        <td>http://www.baiduaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com</td>
+        <td>aaaaaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.iso</td>
+        <td>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+        <td>
+          <a href="#">取消</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

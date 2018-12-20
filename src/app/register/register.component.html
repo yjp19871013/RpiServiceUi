@@ -5,20 +5,20 @@
 <div class="row justify-content-center">
   <form class="form col-3">
     <div class="form-group">
-      <input class=" form-control" type="email" placeholder="请输入邮箱" id="email" name="email" autofocus="autofocus" maxlength="255" [(ngModel)]="registerRequest.email" appForbiddenName="emial" #email="ngModel" />
+      <input class=" form-control" type="text" placeholder="请输入邮箱" id="email" name="email" autofocus="autofocus" maxlength="255" [(ngModel)]="registerRequest.email" />
     </div>
 
     <div class="form-group">
-      <input class="form-control" type="password" placeholder="请输入密码" id="password1" name="password1" maxlength="255" [(ngModel)]="registerRequest.password1" appForbiddenName="password" #password="ngModel" />
+      <input class="form-control" type="password" placeholder="请输入密码" id="password1" name="password1" maxlength="255" [(ngModel)]="registerRequest.password1" />
     </div>
 
     <div class="form-group">
-      <input class="form-control" type="password" placeholder="请再次输入密码" id="password2" name="password2" maxlength="255" [(ngModel)]="registerRequest.password2" appForbiddenName="password" #password="ngModel" />
+      <input class="form-control" type="password" placeholder="请再次输入密码" id="password2" name="password2" maxlength="255" [(ngModel)]="registerRequest.password2" />
     </div>
 
     <div class="form-row">
       <div class="form-group col-8">
-        <input class="form-control" type="text" placeholder="请输入验证码" id="validateCode" name="validateCode" maxlength="6" [(ngModel)]="registerRequest.validateCode" appForbiddenName="password" #password="ngModel" />
+        <input class="form-control" type="text" placeholder="请输入验证码" id="validateCode" name="validateCode" maxlength="6" [(ngModel)]="registerRequest.validateCode" />
       </div>
       <div class="form-group col-auto">
         <button type="button" class="btn btn-success" (click)="getValidateCode()">获取验证码</button>
