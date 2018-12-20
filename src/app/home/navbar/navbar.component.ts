@@ -21,8 +21,6 @@ export class NavbarComponent implements OnInit {
     },
   ];
 
-  selectedItem = this.items[0];
-
   user: User;
 
   constructor(private router: Router, private loginService: LoginService) {
@@ -31,11 +29,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  selected(item: NavbarItem) {
-    this.selectedItem = item;
-  }
-
+  
   logout() {
     this.loginService.logout();
     this.router.navigateByUrl("/login");

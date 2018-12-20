@@ -4,7 +4,7 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active" [class.dropdown]="item.children != null" *ngFor="let item of items">
-        <a *ngIf="item.children == null" class="nav-link" routerLink="{{ item.link }}" (click)="selected(item)">{{ item.title }}</a>
+        <a *ngIf="item.children == null" class="nav-link" routerLink="{{ item.link }}">{{ item.title }}</a>
         <a *ngIf="item.children != null" class="nav-link" href="{{ item.link }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ item.title }}
         </a>

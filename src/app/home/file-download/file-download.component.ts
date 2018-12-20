@@ -8,7 +8,7 @@ import { FileDownloadTask } from './file-download.model';
 })
 export class FileDownloadComponent implements OnInit {
 
-  task: FileDownloadTask = {
+  newTask: FileDownloadTask = {
     url: "",
     saveFilename: ""
   };
@@ -22,8 +22,8 @@ export class FileDownloadComponent implements OnInit {
   }
 
   addDownloadTask() {
-      console.log(this.task.url);
-      console.log(this.task.saveFilename);
+      console.log(this.newTask.url);
+      console.log(this.newTask.saveFilename);
   }
 
   onChooseAll() {
