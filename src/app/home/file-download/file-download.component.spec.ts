@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileManageComponent } from './file-manage.component';
+import { FileDownloadComponent } from './file-download.component';
 
-describe('FileManageComponent', () => {
-  let component: FileManageComponent;
-  let fixture: ComponentFixture<FileManageComponent>;
+describe('FileDownloadComponent', () => {
+  let component: FileDownloadComponent;
+  let fixture: ComponentFixture<FileDownloadComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileManageComponent ]
+      declarations: [ FileDownloadComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileManageComponent);
+    fixture = TestBed.createComponent(FileDownloadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

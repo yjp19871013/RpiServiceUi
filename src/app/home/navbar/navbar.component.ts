@@ -11,8 +11,14 @@ import { User } from '../../login/login.model';
 })
 export class NavbarComponent implements OnInit {
 
+  homePageUrl = "/file-download"
+
   items: NavbarItem[] = [
-    { title: "文件管理", link: "/file-manage" }
+    {
+      title: "文件管理", link: "#", children: [
+        { title: "文件下载", link: "/file-download", children: null }
+      ]
+    },
   ];
 
   selectedItem = this.items[0];
@@ -20,7 +26,7 @@ export class NavbarComponent implements OnInit {
   user: User;
 
   constructor(private router: Router, private loginService: LoginService) {
-      this.user = this.loginService.getLoginUser();
+    this.user = this.loginService.getLoginUser();
   }
 
   ngOnInit() {
@@ -31,8 +37,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-      this.loginService.logout();
-      this.router.navigateByUrl("/login");
+    this.loginService.logout();
+    this.router.navigateByUrl("/login");
   }
 
 }
