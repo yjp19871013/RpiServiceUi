@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit {
             this.errMsg = "请求参数错误";
           } else if (err.status == 401) {
             this.errMsg = "用户名或密码错误";
+          } else if (err.status == 404) {
+            this.errMsg = "用户不存在";
           } else if (err.status == 500) {
             this.errMsg = "服务器内部错误";
           } else {
