@@ -28,7 +28,12 @@ export class FileDownloadComponent implements OnInit {
 
   addDownloadTask() {
     this.errMsg = "";
-    
+
+    if (this.newTask.url == "") {
+        this.errMsg = "URL不能为空";
+        return;
+    }
+
     this.fileDownloadService.addDownloadTask(this.newTask).subscribe(
       (response) => {
         this.tasks.push(response);
