@@ -1,5 +1,8 @@
 {
-  "/api":{
-    "target":"http://localhost:10001"
+  "/api/file-station": {
+    "target": "http://localhost:10002"
+  },
+  "/api/users": {
+    "target": "http://localhost:10001"
   }
 }

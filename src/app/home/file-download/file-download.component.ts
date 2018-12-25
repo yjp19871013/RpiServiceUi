@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FileDownloadTask } from './file-download.model';
+import { NewFileDownloadTask, FileDownloadTask } from './file-download.model';
+import { FileDownloadService } from './file-download.service';
 
 @Component({
   selector: 'app-file-download',
@@ -8,22 +9,43 @@ import { FileDownloadTask } from './file-download.model';
 })
 export class FileDownloadComponent implements OnInit {
 
-  newTask: FileDownloadTask = {
+  newTask: NewFileDownloadTask = {
     url: "",
     saveFilename: ""
   };
 
+  tasks: FileDownloadTask[] = [];
+
+  errMsg: string = ""
+
   private isShowComplete: boolean = false
   private isChooseAll: boolean = false
 
-  constructor() { }
+  constructor(private fileDownloadService: FileDownloadService) { }
 
   ngOnInit() {
   }
 
   addDownloadTask() {
-      console.log(this.newTask.url);
-      console.log(this.newTask.saveFilename);
+    this.errMsg = "";
+    
+    this.fileDownloadService.addDownloadTask(this.newTask).subscribe(
+      (response) => {
+        this.tasks.push(response);
+      },
+      (err) => {
+        if (err.status == 400) {
+          this.errMsg = "请求参数错误";
+        } else if (err.status == 401) {
+          this.errMsg = "未登录";
+        } else if (err.status == 409) {
+          this.errMsg = "任务已存在";
+        } else if (err.status == 500) {
+          this.errMsg = "服务器内部错误";
+        } else {
+          this.errMsg = "未知错误: " + err.status + err.error.message;
+        }
+      });
   }
 
   onChooseAll() {
