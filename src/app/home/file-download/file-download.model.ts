@@ -7,7 +7,7 @@ export class FileDownloadTask {
   id: number;
   url: string;
   saveFilename: string;
-  checked: boolean;
+  progress: number;
 }
 
 export class GetAllDownloadTasksResponse {
@@ -16,4 +16,13 @@ export class GetAllDownloadTasksResponse {
 
 export class DeleteFileDownloadTaskResponse {
   id: number;
+}
+
+export class DownloadProgress {
+  id: number
+  progress: number
+}
+
+export class GetDownloadProgressResponse {
+  progresses: DownloadProgress[]
 }
