@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewFileDownloadTask, FileDownloadTask } from './file-download.model';
 import { FileDownloadService } from './file-download.service';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-file-download',
@@ -25,6 +24,19 @@ export class FileDownloadComponent implements OnInit {
   constructor(private fileDownloadService: FileDownloadService) { }
 
   ngOnInit() {
+    this.fileDownloadService.getAllDownloadTasks().subscribe(
+      (response) => {
+        response.tasks.forEach((item, index) => {
+          this.tasks.push(item);
+        });
+      },
+      (err) => {
+        if (err.status == 500) {
+          this.errMsg = "服务器内部错误";
+        } else {
+          this.errMsg = "未知错误: " + err.status + err.error.message;
+        }
+      });
   }
 
   addDownloadTask() {
@@ -56,12 +68,24 @@ export class FileDownloadComponent implements OnInit {
       });
   }
 
+  deleteAllDownloadTask() {
+      this.errMsg = "";
+
+      this.tasks.forEach((item, index) => {
+         this.deleteDownloadTask(item);
+      });
+  }
+
   deleteDownloadTask(task: FileDownloadTask) {
     this.errMsg = "";
 
     this.fileDownloadService.deleteDownloadTask(task.id).subscribe(
       (response) => {
         this.tasks.splice(this.tasks.findIndex(item => item.id === response.id), 1)
+
+        if (this.tasks.length == 0) {
+          this.isChooseAll = false;
+        }
       },
       (err) => {
         if (err.status == 400) {
@@ -76,6 +100,5 @@ export class FileDownloadComponent implements OnInit {
 
   onChooseAll() {
     this.isChooseAll = !this.isChooseAll;
-    console.log(this.isChooseAll);
   }
 }

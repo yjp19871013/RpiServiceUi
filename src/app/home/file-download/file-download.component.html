@@ -21,11 +21,15 @@
     <span class="col-2 alert alert-primary">{{ errMsg }}</span>
   </div>
 
+  <div class="row justify-content-end mb-3 mr-3" *ngIf="isChooseAll && tasks.length != 0">
+    <button type="button" class="btn btn-success" id="deleteAllButton" (click)="deleteAllDownloadTask()">取消所有</button>
+  </div>
+
   <table class="table">
     <thead>
       <tr>
         <th scope="col">
-          <input type="checkbox" id="chooseAll" name="chooseAll" (change)="onChooseAll()">
+          <input type="checkbox" id="chooseAll" name="chooseAll" (change)="onChooseAll()" [checked]="this.isChooseAll" >
           <label for="chooseAll">全选</label>
         </th>
         <th scope="col">URL</th>
@@ -36,9 +40,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let task of tasks">
-        <th scope="row">
-          <input type="checkbox">
-        </th>
+        <td scope="row">
+          <input type="checkbox" class="item-checked" [checked]="isChooseAll">
+        </td>
         <td>{{ task.url }}</td>
         <td>{{ task.saveFilename }}</td>
         <td>

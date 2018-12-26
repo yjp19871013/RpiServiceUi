@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   NewFileDownloadTask, FileDownloadTask,
-  DeleteFileDownloadTaskResponse
+  DeleteFileDownloadTaskResponse, GetAllDownloadTasksResponse
 } from './file-download.model';
 
 @Injectable({
@@ -11,10 +11,15 @@ import {
 })
 export class FileDownloadService {
 
-  private addDownloadTaskUrl: string = "/api/file-station/download-proxy/files";
-  private deleteDownloadTaskUrl: string = "/api/file-station/download-proxy/files";
+  private getAllDownloadTasksUrl: string = "/api/file-station/download-proxy/tasks";
+  private addDownloadTaskUrl: string = "/api/file-station/download-proxy/tasks";
+  private deleteDownloadTaskUrl: string = "/api/file-station/download-proxy/tasks";
 
   constructor(private http: HttpClient) { }
+
+  getAllDownloadTasks(): Observable<GetAllDownloadTasksResponse> {
+      return this.http.get<GetAllDownloadTasksResponse>(this.getAllDownloadTasksUrl);
+  }
 
   addDownloadTask(newTask: NewFileDownloadTask): Observable<FileDownloadTask> {
     return this.http.post<FileDownloadTask>(this.addDownloadTaskUrl, newTask);
