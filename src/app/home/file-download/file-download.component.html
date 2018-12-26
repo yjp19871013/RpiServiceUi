@@ -13,12 +13,12 @@
     </form>
   </div>
 
-  <div class="row justify-content-center" *ngIf="errMsg != ''">
-    <span class="col-2 alert alert-primary">{{ errMsg }}</span>
-  </div>
-
   <div class="row justify-content-center mb-3">
     <button type="button" class="btn btn-success col-3" (click)="addDownloadTask()">添加</button>
+  </div>
+
+  <div class="row justify-content-center" *ngIf="errMsg != ''">
+    <span class="col-2 alert alert-primary">{{ errMsg }}</span>
   </div>
 
   <table class="table">
@@ -47,7 +47,7 @@
           </div>
         </td>
         <td>
-          <a href="deleteDownloadTask(task)">取消</a>
+          <button type="button"  class="btn btn-success" (click)="deleteDownloadTask(task)">取消</button>
         </td>
       </tr>
     </tbody>

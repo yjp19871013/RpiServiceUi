@@ -8,3 +8,7 @@ export class FileDownloadTask {
     url: string;
     saveFilename: string;
 }
+
+export class DeleteFileDownloadTaskResponse {
+    id: number;
+}
