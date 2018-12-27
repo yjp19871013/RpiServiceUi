@@ -98,6 +98,7 @@ export class FileDownloadComponent implements OnInit {
       (response) => {
         this.newTask.url = "";
         this.newTask.saveFilename = "";
+
         this.tasks.push(response);
       },
       (err) => {
@@ -129,7 +130,6 @@ export class FileDownloadComponent implements OnInit {
 
   deleteDownloadTask(task: FileDownloadTask) {
     this.errMsg = "";
-    console.log(this.tasks)
 
     this.fileDownloadService.deleteDownloadTask(task.id).subscribe(
       (response) => {
