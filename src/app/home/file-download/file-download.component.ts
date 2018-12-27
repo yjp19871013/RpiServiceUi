@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewFileDownloadTask, FileDownloadTask } from './file-download.model';
 import { FileDownloadService } from './file-download.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-file-download',
@@ -23,7 +24,8 @@ export class FileDownloadComponent implements OnInit {
 
   private progressTimer: number;
 
-  constructor(private fileDownloadService: FileDownloadService) { }
+  constructor(private fileDownloadService: FileDownloadService,
+    private router: Router) { }
 
   ngOnInit() {
     this.fileDownloadService.getAllDownloadTasks().subscribe(
@@ -35,6 +37,8 @@ export class FileDownloadComponent implements OnInit {
       (err) => {
         if (err.status == 500) {
           this.errMsg = "服务器内部错误";
+        } else if (err.status == 401) {
+          this.router.navigateByUrl("/login");
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -73,6 +77,8 @@ export class FileDownloadComponent implements OnInit {
         (err) => {
           if (err.status == 400) {
             this.errMsg = "请求参数错误";
+          } else if (err.status == 401) {
+            this.router.navigateByUrl("/login");
           } else if (err.status == 500) {
             this.errMsg = "服务器内部错误";
           } else {
@@ -105,9 +111,9 @@ export class FileDownloadComponent implements OnInit {
         if (err.status == 400) {
           this.errMsg = "请求参数错误";
         } else if (err.status == 401) {
-          this.errMsg = "未登录";
+          this.router.navigateByUrl("/login");
         } else if (err.status == 409) {
-          this.errMsg = "任务已存在";
+          this.errMsg = "已存在";
         } else if (err.status == 500) {
           this.errMsg = "服务器内部错误";
         } else {
@@ -142,6 +148,8 @@ export class FileDownloadComponent implements OnInit {
       (err) => {
         if (err.status == 400) {
           this.errMsg = "请求参数错误";
+        } else if (err.status == 401) {
+          this.router.navigateByUrl("/login");
         } else if (err.status == 500) {
           this.errMsg = "服务器内部错误";
         } else {

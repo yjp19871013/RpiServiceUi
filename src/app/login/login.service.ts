@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User, LoginResponse } from './login.model';
 import { JwtService } from './jwt.service';
+import { Router } from '@angular/router';
 
 const USER_KEY = "user"
 
@@ -13,7 +14,7 @@ export class LoginService {
 
   private createTokenUrl: string = "/api/users/token";
 
-  constructor(private jwtService: JwtService, private http: HttpClient) { }
+  constructor(private jwtService: JwtService, private http: HttpClient, private router: Router) { }
 
   login(user: User): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.createTokenUrl, user);
@@ -24,7 +25,21 @@ export class LoginService {
   }
 
   getLoginUser(): User {
+    if (!this.isLogin()) {
+      this.router.navigateByUrl("/login");
+      return null;
+    }
+
     return this.jwtService.get().user;
+  }
+
+  getLoginToken(): string {
+    if (!this.isLogin()) {
+      this.router.navigateByUrl("/login");
+      return "";
+    }
+
+    return this.jwtService.get().token;
   }
 
   isLogin(): boolean {
