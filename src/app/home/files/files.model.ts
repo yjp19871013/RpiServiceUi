@@ -12,3 +12,7 @@ export class GetFileInfoResponse {
 export class DownloadFileResponse {
     staticUrl: string;
 }
+
+export class DeleteFileResponse {
+    id: number;
+}

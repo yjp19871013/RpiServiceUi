@@ -35,13 +35,26 @@ export class FilesComponent implements OnInit {
   }
 
   deleteFile(info: FileInfo) {
-
+    this.filesService.deleteFile(info.id).subscribe(
+      (response) => {
+        this.fileInfos.splice(this.fileInfos.findIndex(item => item.id === response.id), 1)
+      },
+      (err) => {
+        if (err.status == 500) {
+          this.errMsg = "服务器内部错误";
+        } else if (err.status == 400) {
+          this.errMsg = "参数错误";
+        } else if (err.status == 401) {
+          this.router.navigateByUrl("/login");
+        } else {
+          this.errMsg = "未知错误: " + err.status + err.error.message;
+        }
+      });
   }
 
-  getFile(info: FileInfo) {
+  downloadFile(info: FileInfo) {
     this.filesService.downloadFile(info.id).subscribe(
       (response) => {
-          console.log(response.staticUrl)
         location.href = response.staticUrl;
       },
       (err) => {
@@ -55,6 +68,12 @@ export class FilesComponent implements OnInit {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
       });
+  }
+
+  deleteAllFiles() {
+    this.fileInfos.forEach((item, index) => {
+      this.deleteFile(item);
+    });
   }
 
   onChooseAll() {

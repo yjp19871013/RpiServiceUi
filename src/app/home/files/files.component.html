@@ -5,7 +5,6 @@
 
   <div class="row justify-content-end mb-3 mr-3" *ngIf="isChooseAll && fileInfos.length != 0">
     <button type="button" class="btn btn-success mr-2" id="deleteAllButton" (click)="deleteAllFiles()">删除所有</button>
-    <button type="button" class="btn btn-success ml-2" id="getAllButton" (click)="getAllFiles()">提取所有</button>
   </div>
 
   <table class="table">
@@ -31,7 +30,7 @@
         <td>{{ info.sizeKb }}</td>
         <td>
           <button type="button" class="btn btn-success mr-2" (click)="deleteFile(info)">删除</button>
-          <button type="button" class="btn btn-success ml-2" (click)="getFile(info)">提取</button>
+          <button type="button" class="btn btn-success ml-2" (click)="downloadFile(info)">提取</button>
         </td>
       </tr>
     </tbody>
