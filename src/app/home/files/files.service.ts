@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginService } from '../../login/login.service';
-import { GetFileInfoResponse } from './files.model';
+import { GetFileInfoResponse, DownloadFileResponse } from './files.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilesService {
 
-  private getAllFilesUrl: string = "/api/file-station/download-proxy/files";
+  private getAllFilesUrl: string = "/api/file-station/download-proxy/file-infos";
+  private downloadFileUrl: string = "/api/file-station/download-proxy/files";
 
   private authorizationHeaders = {
     headers: new HttpHeaders({
@@ -21,5 +22,9 @@ export class FilesService {
 
   getFileInfos(): Observable<GetFileInfoResponse> {
       return this.http.get<GetFileInfoResponse>(this.getAllFilesUrl, this.authorizationHeaders);
+  }
+
+  downloadFile(id: number): Observable<DownloadFileResponse> {
+      return this.http.get<DownloadFileResponse>(this.downloadFileUrl + "/" + id, this.authorizationHeaders);
   }
 }

@@ -10,13 +10,7 @@ import { Router } from '@angular/router';
 })
 export class FilesComponent implements OnInit {
 
-  fileInfos: FileInfo[] = [
-      {
-          fileName: "ubuntu.iso",
-          completeDate: "2018-12-28 15:00:00",
-          sizeKb: 124000
-      }
-  ];
+  fileInfos: FileInfo[] = [];
 
   errMsg: string = ""
 
@@ -25,19 +19,19 @@ export class FilesComponent implements OnInit {
   constructor(private filesService: FilesService, private router: Router) { }
 
   ngOnInit() {
-      this.filesService.getFileInfos().subscribe(
-        (response) => {
-          this.fileInfos = response.fileInfos;
-        },
-        (err) => {
-          if (err.status == 500) {
-            this.errMsg = "服务器内部错误";
-          } else if (err.status == 401) {
-            this.router.navigateByUrl("/login");
-          } else {
-            this.errMsg = "未知错误: " + err.status + err.error.message;
-          }
-        });
+    this.filesService.getFileInfos().subscribe(
+      (response) => {
+        this.fileInfos = response.fileInfos;
+      },
+      (err) => {
+        if (err.status == 500) {
+          this.errMsg = "服务器内部错误";
+        } else if (err.status == 401) {
+          this.router.navigateByUrl("/login");
+        } else {
+          this.errMsg = "未知错误: " + err.status + err.error.message;
+        }
+      });
   }
 
   deleteFile(info: FileInfo) {
@@ -45,7 +39,22 @@ export class FilesComponent implements OnInit {
   }
 
   getFile(info: FileInfo) {
-
+    this.filesService.downloadFile(info.id).subscribe(
+      (response) => {
+          console.log(response.staticUrl)
+        location.href = response.staticUrl;
+      },
+      (err) => {
+        if (err.status == 500) {
+          this.errMsg = "服务器内部错误";
+        } else if (err.status == 400) {
+          this.errMsg = "参数错误";
+        } else if (err.status == 401) {
+          this.router.navigateByUrl("/login");
+        } else {
+          this.errMsg = "未知错误: " + err.status + err.error.message;
+        }
+      });
   }
 
   onChooseAll() {
