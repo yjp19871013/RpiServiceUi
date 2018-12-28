@@ -30,9 +30,7 @@ export class FileDownloadComponent implements OnInit {
   ngOnInit() {
     this.fileDownloadService.getAllDownloadTasks().subscribe(
       (response) => {
-        response.tasks.forEach((item, index) => {
-          this.tasks.push(item);
-        });
+        this.tasks = response.tasks;
       },
       (err) => {
         if (err.status == 500) {

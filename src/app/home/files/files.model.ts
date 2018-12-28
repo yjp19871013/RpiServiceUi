@@ -3,3 +3,7 @@ export class FileInfo {
     completeDate: string;
     sizeKb: number;
 }
+
+export class GetFileInfoResponse {
+    fileInfos: FileInfo[];
+}
