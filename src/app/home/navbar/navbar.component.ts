@@ -16,7 +16,8 @@ export class NavbarComponent implements OnInit {
   items: NavbarItem[] = [
     {
       title: "文件管理", link: "#", children: [
-        { title: "文件下载", link: "/file-download", children: null }
+        { title: "文件下载", link: "/file-download", children: null },
+        { title: "我的文件", link: "/files", children: null }
       ]
     },
   ];
@@ -29,7 +30,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
   logout() {
     this.loginService.logout();
     this.router.navigateByUrl("/login");

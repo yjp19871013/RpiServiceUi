@@ -7,12 +7,14 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { FileDownloadComponent } from './file-download/file-download.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FilesComponent } from './files/files.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     FileDownloadComponent,
-    NavbarComponent
+    NavbarComponent,
+    FilesComponent
   ],
   imports: [
     BrowserModule,
