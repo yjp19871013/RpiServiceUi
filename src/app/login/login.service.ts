@@ -20,10 +20,6 @@ export class LoginService {
     return this.http.post<LoginResponse>(this.createTokenUrl, user);
   }
 
-  logout() {
-    this.jwtService.delete();
-  }
-
   getLoginUser(): User {
     if (!this.isLogin()) {
       this.router.navigateByUrl("/login");
