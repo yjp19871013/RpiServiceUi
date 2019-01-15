@@ -1,53 +1,72 @@
-<div class="m-4">
-  <div class="row justify-content-center">
-    <h5>添加用户</h5>
-  </div>
-  <div class="row justify-content-center">
-    <form class="form col-4">
-      <div class="form-group">
-        <input class="form-control" type="text" placeholder="请输入用户邮箱" name="email" autofocus="autofocus" [(ngModel)]="newUser.email" />
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="password" placeholder="请输入密码" name="password" autofocus="autofocus" [(ngModel)]="newUser.password" />
-      </div>
-      <div class="form-group">
-        <div class="form-check form-check-inline" *ngFor="let role of roles">
-          <input class="form-check-input" type="checkbox" value="{{ role }}" (change)="onRoleCheckChanged(role)">
-          <label class="form-check-label">{{ role }}</label>
-        </div>
-      </div>
+<div nz-row nzType="flex" nzJustify="center" class="title">
+  <h3>添加用户</h3>
+</div>
+
+<div nz-row nzType="flex" nzJustify="center">
+  <div nz-col nzSpan="5">
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input type="text" placeholder="请输入用户邮箱" name="email" autofocus="autofocus" [(ngModel)]="newUser.email" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input type="password" placeholder="请输入密码" name="password" autofocus="autofocus" [(ngModel)]="newUser.password" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <label>请选择角色：</label>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-checkbox-wrapper (nzOnChange)="onRoleCheckChanged($event)">
+            <label nz-checkbox *ngFor="let role of roles" nzValue="{{ role }}">{{ role }}</label>
+          </nz-checkbox-wrapper>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" nzBlock (click)="addNewUser()">添加</button>
+        </nz-form-control>
+      </nz-form-item>
     </form>
   </div>
-
-  <div class="row justify-content-center mb-3">
-    <button type="button" class="btn btn-success col-3" (click)="addNewUser()">添加</button>
-  </div>
-
-  <div class="row justify-content-center" *ngIf="errMsg != ''">
-    <span class="col-2 alert alert-primary">{{ errMsg }}</span>
-  </div>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Email</th>
-        <th scope="col">角色</th>
-        <th scope="col">创建时间</th>
-        <th scope="col">修改时间</th>
-        <th scope="col">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let userInfo of userInfos">
-        <td>{{ userInfo.email }}</td>
-        <td>{{ userInfo.roles }}</td>
-        <td>{{ userInfo.createDate }}</td>
-        <td>{{ userInfo.updateDate }}</td>
-        <td>
-          <button type="button" class="btn btn-success mr-2" (click)="modifyUser(user)">修改</button>
-          <button type="button" class="btn btn-success ml-2" (click)="deleteUser(user)">删除</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
+
+<div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''">
+  <div nz-col nzSpan="5">
+    <nz-alert nzType="error" nzMessage="{{ errMsg }}"></nz-alert>
+  </div>
+</div>
+
+<nz-table>
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">角色</th>
+      <th scope="col">创建时间</th>
+      <th scope="col">修改时间</th>
+      <th scope="col">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let userInfo of userInfos">
+      <td>{{ userInfo.email }}</td>
+      <td>{{ userInfo.roles }}</td>
+      <td>{{ userInfo.createDate }}</td>
+      <td>{{ userInfo.updateDate }}</td>
+      <td>
+        <div nz-row [nzGutter]="10">
+          <div nz-col nzSpan="4">
+            <button nz-button nzType="primary" (click)="modifyUser(user)">修改</button>
+          </div>
+          <div nz-col nzSpan="4">
+            <button nz-button nzType="primary" (click)="deleteUser(user)">删除</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

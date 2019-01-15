@@ -40,7 +40,6 @@ export class UserManageComponent implements OnInit {
     this.userManageService.getAllUsers().subscribe(
       (response) => {
         this.userInfos = response.userInfos;
-        console.log(this.userInfos)
       },
       (err) => {
         if (err.status == 500) {
@@ -66,12 +65,9 @@ export class UserManageComponent implements OnInit {
 
   }
 
-  onRoleCheckChanged(role: string) {
-    if (this.checkedRoles.includes(role)) {
-      this.checkedRoles.splice(this.checkedRoles.findIndex(item => item === role), 1)
-    } else {
-      this.checkedRoles.push(role);
-    }
+  onRoleCheckChanged(value: string[]) {
+    this.checkedRoles = value;
+    console.log(this.checkedRoles);
   }
 
 }
