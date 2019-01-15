@@ -1,36 +1,51 @@
-<div class="row justify-content-center mt-5">
+<div nz-row nzType="flex" nzJustify="center" class="title">
   <h3>用户注册</h3>
 </div>
 
-<div class="row justify-content-center">
-  <form class="form col-3">
-    <div class="form-group">
-      <input class=" form-control" type="text" placeholder="请输入邮箱" id="email" name="email" autofocus="autofocus" maxlength="255" [(ngModel)]="registerRequest.email" />
-    </div>
+<div nz-row nzType="flex" nzJustify="center">
+  <div nz-col nzSpan="5">
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input type="text" placeholder="请输入邮箱" id="email" name="email" autofocus="autofocus" maxlength="255" [(ngModel)]="registerRequest.email" />
+        </nz-form-control>
+      </nz-form-item>
 
-    <div class="form-group">
-      <input class="form-control" type="password" placeholder="请输入密码" id="password1" name="password1" maxlength="255" [(ngModel)]="registerRequest.password1" />
-    </div>
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input type="password" placeholder="请输入密码" id="password1" name="password1" maxlength="255" [(ngModel)]="registerRequest.password1" />
+        </nz-form-control>
+      </nz-form-item>
 
-    <div class="form-group">
-      <input class="form-control" type="password" placeholder="请再次输入密码" id="password2" name="password2" maxlength="255" [(ngModel)]="registerRequest.password2" />
-    </div>
-
-    <div class="form-row">
-      <div class="form-group col-8">
-        <input class="form-control" type="text" placeholder="请输入验证码" id="validateCode" name="validateCode" maxlength="6" [(ngModel)]="registerRequest.validateCode" />
-      </div>
-      <div class="form-group col-auto">
-        <button type="button" class="btn btn-success" (click)="getValidateCode()">获取验证码</button>
-      </div>
-    </div>
-  </form>
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input type="password" placeholder="请再次输入密码" id="password2" name="password2" maxlength="255" [(ngModel)]="registerRequest.password2" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <div nz-row [nzGutter]="20">
+            <div nz-col [nzSpan]="12">
+              <input nz-input type="text" placeholder="请输入验证码" id="validateCode" name="validateCode" maxlength="6" [(ngModel)]="registerRequest.validateCode" />
+            </div>
+            <div nz-col [nzSpan]="12">
+              <button nz-button nzType="primary" nzSize="large" (click)="getValidateCode()">获取验证码</button>
+            </div>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
 </div>
 
-<div class="row justify-content-center" *ngIf="errMsg != ''">
-  <span class="col-2 alert alert-primary">{{ errMsg }}</span>
+<div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''">
+  <div nz-col nzSpan="5">
+    <nz-alert nzType="error" nzMessage="{{ errMsg }}"></nz-alert>
+  </div>
 </div>
 
-<div class="row justify-content-center">
-  <button type="button" class="col-3 btn btn-success" (click)="register()">提交</button>
+<div nz-row nzType="flex" nzJustify="center" [nzGutter]="20">
+  <div nz-col nzSpan="5">
+    <button nz-button nzType="primary" nzSize="large" nzBlock (click)="register()">提交</button>
+  </div>
 </div>

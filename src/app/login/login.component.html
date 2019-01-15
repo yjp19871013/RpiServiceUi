@@ -7,16 +7,12 @@
     <form nz-form>
       <nz-form-item>
         <nz-form-control>
-          <nz-input-group>
-            <input class="form-control" type="text" placeholder="请输入邮箱" id="email" name="email" autofocus="autofocus" maxlength="255" [(ngModel)]="user.email" />
-          </nz-input-group>
+            <input nz-input type="text" placeholder="请输入邮箱" id="email" name="email" autofocus="autofocus" maxlength="255" [(ngModel)]="user.email" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-          <nz-input-group>
-            <input class="form-control" type="password" placeholder="请输入密码" id="password" name="password" maxlength="255" [(ngModel)]="user.password" />
-          </nz-input-group>
+            <input nz-input type="password" placeholder="请输入密码" id="password" name="password" maxlength="255" [(ngModel)]="user.password" />
         </nz-form-control>
       </nz-form-item>
     </form>
@@ -29,11 +25,11 @@
   </div>
 </div>
 
-<div nz-row nzType="flex" nzJustify="center">
-  <div nz-col nzSpan="2" class="left-btn">
+<div nz-row nzType="flex" nzJustify="center" [nzGutter]="20">
+  <div nz-col nzSpan="2">
       <button nz-button nzType="primary" nzBlock (click)="login()">登录</button>
   </div>
-  <div nz-col nzSpan="2" class="right-btn">
+  <div nz-col nzSpan="2">
       <button nz-button nzType="primary" nzBlock routerLink="/register">注册</button>
   </div>
 </div>
