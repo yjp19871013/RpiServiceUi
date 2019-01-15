@@ -10,18 +10,6 @@ import { User } from '../../login/login.model';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  homePageUrl = "/file-download"
-
-  items: NavbarItem[] = [
-    {
-      title: "文件管理", link: "#", children: [
-        { title: "文件下载", link: "/file-download", children: null },
-        { title: "我的文件", link: "/files", children: null }
-      ]
-    },
-  ];
-
   user: User;
 
   constructor(private router: Router, private loginService: LoginService) {

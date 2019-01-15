@@ -1,27 +1,21 @@
-<nav class="navbar navbar-expand navbar-dark bg-primary">
-  <a class="navbar-brand" routerLink="{{ homePageUrl }}">树莓派服务系统</a>
+<ul nz-menu [nzMode]="'horizontal'" style="line-height: 64px;">
+  <li nz-menu-item>
+      <a routerLink="/file-download">树莓派服务系统</a>
+  </li>
 
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active" [class.dropdown]="item.children != null" *ngFor="let item of items">
-        <a *ngIf="item.children == null" class="nav-link" routerLink="{{ item.link }}">{{ item.title }}</a>
-        <a *ngIf="item.children != null" class="nav-link" href="{{ item.link }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ item.title }}
-        </a>
-        <div *ngIf="item.children != null" class="dropdown-menu">
-          <a class="dropdown-item" href="{{ item.link }}" *ngFor="let item of item.children">{{ item.title }}</a>
-        </div>
-      </li>
+  <li nz-submenu>
+      <span title>文件管理</span>
+      <ul>
+          <li nz-menu-item>
+              <a routerLink="/file-download">文件下载</a>
+          </li>
+          <li nz-menu-item>
+              <a routerLink="/files">我的文件</a>
+          </li>
+      </ul>
+  </li>
 
-      <li class="nav-item active" *ngIf="user.roles.includes('管理员')">
-          <a class="nav-link" routerLink="/user-manage">用户管理</a>
-      </li>
-    </ul>
-
-    <form class="form-inline">
-      <span class="mr-2" style="color: white">欢迎, {{ user.email }}</span>
-      <a class="btn btn-outline-light" style="color: white" (click)="logout()">注销</a>
-    </form>
-  </div>
-
-</nav>
+  <li nz-menu-item *ngIf="user.roles.includes('管理员')">
+    <a routerLink="/user-manage">用户管理</a>
+  </li>
+</ul>
