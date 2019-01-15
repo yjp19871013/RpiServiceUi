@@ -19,9 +19,6 @@ export class FileDownloadComponent implements OnInit {
 
   errMsg: string = ""
 
-  private isShowComplete: boolean = false
-  private isChooseAll: boolean = false
-
   private progressTimer: number;
 
   constructor(private fileDownloadService: FileDownloadService,
@@ -103,6 +100,7 @@ export class FileDownloadComponent implements OnInit {
         this.newTask.url = "";
         this.newTask.saveFilename = "";
 
+        response.progress = 0;
         this.tasks.push(response);
       },
       (err) => {
@@ -120,28 +118,12 @@ export class FileDownloadComponent implements OnInit {
       });
   }
 
-  deleteAllDownloadTask() {
-    this.errMsg = "";
-
-    if (this.tasks.length == 0) {
-      return;
-    }
-
-    this.tasks.forEach((item, index) => {
-      this.deleteDownloadTask(item);
-    });
-  }
-
   deleteDownloadTask(task: FileDownloadTask) {
     this.errMsg = "";
 
     this.fileDownloadService.deleteDownloadTask(task.id).subscribe(
       (response) => {
         this.tasks.splice(this.tasks.findIndex(item => item.id === response.id), 1)
-
-        if (this.tasks.length == 0) {
-          this.isChooseAll = false;
-        }
       },
       (err) => {
         if (err.status == 400) {
@@ -154,9 +136,5 @@ export class FileDownloadComponent implements OnInit {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
       });
-  }
-
-  onChooseAll() {
-    this.isChooseAll = !this.isChooseAll;
   }
 }

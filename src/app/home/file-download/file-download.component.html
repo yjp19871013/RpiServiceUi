@@ -1,59 +1,54 @@
-<div class="m-4">
-  <div class="row justify-content-center">
-    <h5>添加任务</h5>
-  </div>
-  <div class="row justify-content-center">
-    <form class="form col-4">
-      <div class="form-group">
-        <input class="form-control" type="text" placeholder="请输入要下载的URL" name="url" autofocus="autofocus" [(ngModel)]="newTask.url" />
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="text" placeholder="请输入要保存的文件名" name="filename" autofocus="autofocus" [(ngModel)]="newTask.saveFilename" />
-      </div>
+<div nz-row nzType="flex" nzJustify="center" class="title">
+  <h5>添加任务</h5>
+</div>
+
+<div nz-row nzType="flex" nzJustify="center">
+  <div nz-col nzSpan="5">
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input type="text" placeholder="请输入要下载的URL" name="url" autofocus="autofocus" [(ngModel)]="newTask.url" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input type="text" placeholder="请输入要保存的文件名" name="filename" autofocus="autofocus" [(ngModel)]="newTask.saveFilename" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" nzBlock (click)="addDownloadTask()">添加</button>
+        </nz-form-control>
+      </nz-form-item>
     </form>
   </div>
-
-  <div class="row justify-content-center mb-3">
-    <button type="button" class="btn btn-success col-3" (click)="addDownloadTask()">添加</button>
-  </div>
-
-  <div class="row justify-content-center" *ngIf="errMsg != ''">
-    <span class="col-2 alert alert-primary">{{ errMsg }}</span>
-  </div>
-
-  <div class="row justify-content-end mb-3 mr-3" *ngIf="isChooseAll && tasks.length != 0">
-    <button type="button" class="btn btn-success" id="deleteAllButton" (click)="deleteAllDownloadTask()">取消所有</button>
-  </div>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">
-          <input type="checkbox" id="chooseAll" name="chooseAll" (change)="onChooseAll()" [checked]="this.isChooseAll" >
-          <label for="chooseAll">全选</label>
-        </th>
-        <th scope="col">URL</th>
-        <th scope="col">文件名</th>
-        <th scope="col">进度</th>
-        <th scope="col">操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let task of tasks">
-        <td scope="row">
-          <input type="checkbox" class="item-checked" [checked]="isChooseAll">
-        </td>
-        <td>{{ task.url }}</td>
-        <td>{{ task.saveFilename }}</td>
-        <td>
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ task.progress }} %</div>
-          </div>
-        </td>
-        <td>
-          <button type="button"  class="btn btn-success" (click)="deleteDownloadTask(task)">取消</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
+
+<div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''">
+  <nz-alert nzType="error" nzMessage="{{ errMsg }}"></nz-alert>
+</div>
+
+<nz-table>
+  <thead>
+    <tr>
+      <th scope="col">URL</th>
+      <th scope="col">文件名</th>
+      <th scope="col">进度</th>
+      <th scope="col">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.url }}</td>
+      <td>{{ task.saveFilename }}</td>
+      <td>
+        <nz-progress [nzPercent]="task.progress" nzStatus="active"></nz-progress>
+      </td>
+      <td>
+        <button nz-button nzType="primary" (click)="deleteDownloadTask(task)">取消</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
