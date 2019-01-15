@@ -1,24 +1,39 @@
-<div class="row justify-content-center mt-5">
+<div nz-row nzType="flex" nzJustify="center" class="title">
   <h3>登录系统</h3>
 </div>
 
-<div class="row justify-content-center">
-  <form class="form col-3">
-    <div class="form-group">
-      <input class="form-control" type="text" placeholder="请输入邮箱" id="email" name="email" autofocus="autofocus" maxlength="255" [(ngModel)]="user.email" />
-    </div>
-
-    <div class="form-group">
-      <input class="form-control" type="password" placeholder="请输入密码" id="password" name="password" maxlength="255" [(ngModel)]="user.password" />
-    </div>
-  </form>
+<div nz-row nzType="flex" nzJustify="center">
+  <div nz-col nzSpan="5">
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <input class="form-control" type="text" placeholder="请输入邮箱" id="email" name="email" autofocus="autofocus" maxlength="255" [(ngModel)]="user.email" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <input class="form-control" type="password" placeholder="请输入密码" id="password" name="password" maxlength="255" [(ngModel)]="user.password" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
 </div>
 
-<div class="row justify-content-center" *ngIf="errMsg != ''">
-  <span class="col-2 alert alert-primary">{{ errMsg }}</span>
+<div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''">
+  <div nz-col nzSpan="5">
+    <nz-alert nzType="error" nzMessage="{{ errMsg }}"></nz-alert>
+  </div>
 </div>
 
-<div class="row justify-content-center">
-      <button type="button" class="col-1 btn btn-success mr-2" (click)="login()">登录</button>
-      <button type="button" class="col-1 btn btn-success ml-2" routerLink="/register">注册</button>
+<div nz-row nzType="flex" nzJustify="center">
+  <div nz-col nzSpan="2" class="left-btn">
+      <button nz-button nzType="primary" nzBlock (click)="login()">登录</button>
+  </div>
+  <div nz-col nzSpan="2" class="right-btn">
+      <button nz-button nzType="primary" nzBlock routerLink="/register">注册</button>
+  </div>
 </div>
