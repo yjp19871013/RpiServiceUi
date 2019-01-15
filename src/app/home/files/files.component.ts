@@ -14,8 +14,6 @@ export class FilesComponent implements OnInit {
 
   errMsg: string = ""
 
-  private isChooseAll: boolean = false;
-
   constructor(private filesService: FilesService, private router: Router) { }
 
   ngOnInit() {
@@ -74,10 +72,6 @@ export class FilesComponent implements OnInit {
     this.fileInfos.forEach((item, index) => {
       this.deleteFile(item);
     });
-  }
-
-  onChooseAll() {
-    this.isChooseAll = !this.isChooseAll;
   }
 
 }
