@@ -8,13 +8,15 @@ import { HomeComponent } from './home.component';
 import { FileDownloadComponent } from './file-download/file-download.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FilesComponent } from './files/files.component';
+import { UserManageComponent } from './user-manage/user-manage.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     FileDownloadComponent,
     NavbarComponent,
-    FilesComponent
+    FilesComponent,
+    UserManageComponent
   ],
   imports: [
     BrowserModule,
