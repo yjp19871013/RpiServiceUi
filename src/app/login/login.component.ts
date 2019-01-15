@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
 
   user: User = {
     email: "",
-    password: ""
+    password: "",
+    roles: []
   };
 
   errMsg: string = "";
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (response) => {
           this.errMsg = "";
+          this.user.roles = response.roles;
           this.jwtService.save(response.token, this.user);
           this.router.navigateByUrl("/");
         },
