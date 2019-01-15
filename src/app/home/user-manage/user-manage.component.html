@@ -31,19 +31,21 @@
     <thead>
       <tr>
         <th scope="col">Email</th>
-        <th scope="col">密码</th>
         <th scope="col">角色</th>
+        <th scope="col">创建时间</th>
+        <th scope="col">修改时间</th>
         <th scope="col">操作</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.email }}</td>
-        <td>{{ user.password }}</td>
-        <td>{{ user.roles }}</td>
+      <tr *ngFor="let userInfo of userInfos">
+        <td>{{ userInfo.email }}</td>
+        <td>{{ userInfo.roles }}</td>
+        <td>{{ userInfo.createDate }}</td>
+        <td>{{ userInfo.updateDate }}</td>
         <td>
-          <button type="button" class="btn btn-success" (click)="modifyUser(user)">修改</button>
-          <button type="button" class="btn btn-success" (click)="deleteUser(user)">删除</button>
+          <button type="button" class="btn btn-success mr-2" (click)="modifyUser(user)">修改</button>
+          <button type="button" class="btn btn-success ml-2" (click)="deleteUser(user)">删除</button>
         </td>
       </tr>
     </tbody>
