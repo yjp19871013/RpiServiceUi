@@ -22,11 +22,14 @@ export class UserManageComponent implements OnInit {
     roles: []
   };
 
+  editCache = {};
   userInfos: UserInfo[] = [];
 
   private checkedRoles: string[] = [];
 
-  constructor(private userManageService: UserManageService) {
+  constructor(private userManageService: UserManageService) { }
+
+  ngOnInit() {
     this.userManageService.getAllRoles().subscribe(
       (response) => {
         this.roles = response.roles;
@@ -43,14 +46,18 @@ export class UserManageComponent implements OnInit {
       (response) => {
         response.userInfos.forEach((item, index) => {
           var info: UserInfo = {
-            key: '' + index + 1,
+            key: '' + (index + 1),
             email: item.email,
             roles: item.roles,
             createDate: item.createDate,
             updateDate: item.updateDate
           };
+
           this.userInfos.push(info);
+          this.addToEditCache(info);
         });
+
+        console.log(this.editCache);
       },
       (err) => {
         if (err.status == 500) {
@@ -61,7 +68,13 @@ export class UserManageComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  addToEditCache(info: UserInfo) {
+    if (!this.editCache[info.key]) {
+      this.editCache[info.key] = {
+        edit: false,
+        data: { ...info }
+      };
+    }
   }
 
   addNewUser() {
@@ -69,7 +82,17 @@ export class UserManageComponent implements OnInit {
   }
 
   modifyUser(key: string) {
+    this.editCache[key].edit = true;
+  }
 
+  saveModify(key: string) {
+    const index = this.userInfos.findIndex(item => item.key === key);
+    Object.assign(this.userInfos[index], this.editCache[key].data);
+    this.editCache[key].edit = false;
+  }
+
+  cancelModify(key: string) {
+    this.editCache[key].edit = false;
   }
 
   deleteUser(key: string) {

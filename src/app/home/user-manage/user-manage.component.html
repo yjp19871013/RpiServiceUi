@@ -53,23 +53,50 @@
   </thead>
   <tbody>
     <tr *ngFor="let userInfo of userInfos">
-      <td>{{ userInfo.email }}</td>
-      <td>{{ userInfo.roles }}</td>
+      <td>
+        <ng-container *ngIf="!editCache[userInfo.key].edit">
+          {{ userInfo.email }}
+        </ng-container>
+        <ng-container *ngIf="editCache[userInfo.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[userInfo.key].data.email">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[userInfo.key].edit">
+          {{ userInfo.roles }}
+        </ng-container>
+        <ng-container *ngIf="editCache[userInfo.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[userInfo.key].data.roles">
+        </ng-container>
+      </td>
       <td>{{ userInfo.createDate }}</td>
       <td>{{ userInfo.updateDate }}</td>
       <td>
-        <div nz-row [nzGutter]="10">
-          <div nz-col nzSpan="5">
-            <nz-popconfirm [nzTitle]="'确定修改?'" (nzOnConfirm)="modifyUser(userInfo.key)">
-              <a nz-popconfirm>修改</a>
-            </nz-popconfirm>
+        <ng-container *ngIf="!editCache[userInfo.key].edit">
+          <div nz-row [nzGutter]="10">
+            <div nz-col nzSpan="5">
+              <a (click)="modifyUser(userInfo.key)">修改</a>
+            </div>
+            <div nz-col nzSpan="5">
+              <nz-popconfirm [nzTitle]="'确定删除?'" (nzOnConfirm)="deleteUser(userInfo.key)">
+                <a nz-popconfirm>删除</a>
+              </nz-popconfirm>
+            </div>
           </div>
-          <div nz-col nzSpan="5">
-            <nz-popconfirm [nzTitle]="'确定删除?'" (nzOnConfirm)="deleteUser(userInfo.key)">
-              <a nz-popconfirm>删除</a>
-            </nz-popconfirm>
+        </ng-container>
+        <ng-container *ngIf="editCache[userInfo.key].edit">
+          <div nz-row [nzGutter]="10">
+            <div nz-col nzSpan="5">
+              <nz-popconfirm [nzTitle]="'保存?'" (nzOnConfirm)="saveModify(userInfo.key)">
+                <a nz-popconfirm>保存</a>
+              </nz-popconfirm>
+            </div>
+            <div nz-col nzSpan="5">
+              <a (click)="cancelModify(userInfo.key)">取消</a>
+            </div>
           </div>
-        </div>
+        </ng-container>
+
       </td>
     </tr>
   </tbody>
