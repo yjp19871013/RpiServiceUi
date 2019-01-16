@@ -47,7 +47,9 @@
         <nz-progress [nzPercent]="task.progress" nzStatus="active"></nz-progress>
       </td>
       <td>
-        <button nz-button nzType="primary" (click)="deleteDownloadTask(task)">取消</button>
+        <nz-popconfirm [nzTitle]="'确定取消?'" (nzOnConfirm)="deleteDownloadTask(task)">
+          <a nz-popconfirm>取消</a>
+        </nz-popconfirm>
       </td>
     </tr>
   </tbody>
