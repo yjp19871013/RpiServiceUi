@@ -10,6 +10,8 @@ import { UserInfo } from './user-manage.model';
 })
 export class UserManageComponent implements OnInit {
 
+  noDataStr: string = "没有更多数据了";
+
   errMsg: string = "";
 
   roles: string[] = [];
@@ -39,7 +41,16 @@ export class UserManageComponent implements OnInit {
 
     this.userManageService.getAllUsers().subscribe(
       (response) => {
-        this.userInfos = response.userInfos;
+        response.userInfos.forEach((item, index) => {
+          var info: UserInfo = {
+            key: '' + index + 1,
+            email: item.email,
+            roles: item.roles,
+            createDate: item.createDate,
+            updateDate: item.updateDate
+          };
+          this.userInfos.push(info);
+        });
       },
       (err) => {
         if (err.status == 500) {
@@ -57,12 +68,13 @@ export class UserManageComponent implements OnInit {
 
   }
 
-  modifyUser(user: User) {
+  modifyUser(key: string) {
 
   }
 
-  deleteUser(user: User) {
-
+  deleteUser(key: string) {
+    const dataSet = this.userInfos.filter(d => d.key !== key);
+    this.userInfos = dataSet;
   }
 
   onRoleCheckChanged(value: string[]) {

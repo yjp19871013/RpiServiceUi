@@ -41,7 +41,7 @@
   </div>
 </div>
 
-<nz-table>
+<nz-table [nzNoResult]="noDataStr" [nzData]="userInfos">
   <thead>
     <tr>
       <th scope="col">Email</th>
@@ -59,11 +59,15 @@
       <td>{{ userInfo.updateDate }}</td>
       <td>
         <div nz-row [nzGutter]="10">
-          <div nz-col nzSpan="4">
-            <button nz-button nzType="primary" (click)="modifyUser(user)">修改</button>
+          <div nz-col nzSpan="5">
+            <nz-popconfirm [nzTitle]="'确定修改?'" (nzOnConfirm)="modifyUser(userInfo.key)">
+              <a nz-popconfirm>修改</a>
+            </nz-popconfirm>
           </div>
-          <div nz-col nzSpan="4">
-            <button nz-button nzType="primary" (click)="deleteUser(user)">删除</button>
+          <div nz-col nzSpan="5">
+            <nz-popconfirm [nzTitle]="'确定删除?'" (nzOnConfirm)="deleteUser(userInfo.key)">
+              <a nz-popconfirm>删除</a>
+            </nz-popconfirm>
           </div>
         </div>
       </td>

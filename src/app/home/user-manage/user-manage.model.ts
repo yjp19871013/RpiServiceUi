@@ -1,6 +1,7 @@
 import { User } from '../../login/login.model';
 
 export class UserInfo {
+    key: string;
     email: string;
     roles: string[];
     createDate: string;
