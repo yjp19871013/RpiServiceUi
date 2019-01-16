@@ -17,8 +17,18 @@
       <td>{{ info.completeDate }}</td>
       <td>{{ info.sizeKb }}</td>
       <td>
-        <button type="button" class="btn btn-success mr-2" (click)="deleteFile(info)">删除</button>
-        <button type="button" class="btn btn-success ml-2" (click)="downloadFile(info)">提取</button>
+        <div nz-row [nzGutter]="10">
+          <div nz-col nzSpan="5">
+            <nz-popconfirm [nzTitle]="'确认删除?'" (nzOnConfirm)="deleteFile(info)">
+              <a nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </div>
+          <div nz-col nzSpan="5">
+            <nz-popconfirm [nzTitle]="'确认提取?'" (nzOnConfirm)="downloadFile(info)">
+              <a nz-popconfirm>提取</a>
+            </nz-popconfirm>
+          </div>
+        </div>
       </td>
     </tr>
   </tbody>
