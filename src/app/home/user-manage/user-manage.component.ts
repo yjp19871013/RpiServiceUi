@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../login/login.model';
 import { UserManageService } from './user-manage.service';
-import { UserInfo } from './user-manage.model';
+import { UserInfo, UpdateUserRolesRequest } from './user-manage.model';
+import { Router } from '@angular/router';
+import { LoginService } from '../../login/login.service';
 
 @Component({
   selector: 'app-user-manage',
@@ -27,7 +29,9 @@ export class UserManageComponent implements OnInit {
 
   private checkedRoles: string[] = [];
 
-  constructor(private userManageService: UserManageService) { }
+  constructor(private userManageService: UserManageService,
+    private loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit() {
     this.userManageService.getAllRoles().subscribe(
@@ -37,6 +41,8 @@ export class UserManageComponent implements OnInit {
       (err) => {
         if (err.status == 500) {
           this.errMsg = "获取角色列表失败，服务器内部错误";
+        } else if (err.status == 401) {
+          this.router.navigateByUrl("/login");
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -44,9 +50,9 @@ export class UserManageComponent implements OnInit {
 
     this.userManageService.getAllUsers().subscribe(
       (response) => {
-        response.userInfos.forEach((item, index) => {
+        response.userInfos.forEach((item) => {
           var info: UserInfo = {
-            key: '' + (index + 1),
+            id: item.id,
             email: item.email,
             roles: item.roles,
             createDate: item.createDate,
@@ -62,6 +68,8 @@ export class UserManageComponent implements OnInit {
       (err) => {
         if (err.status == 500) {
           this.errMsg = "获取用户列表失败，服务器内部错误";
+        } else if (err.status == 401) {
+          this.router.navigateByUrl("/login");
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -69,34 +77,55 @@ export class UserManageComponent implements OnInit {
   }
 
   addToEditCache(info: UserInfo) {
-    if (!this.editCache[info.key]) {
-      this.editCache[info.key] = {
+    if (!this.editCache[info.id]) {
+      this.editCache[info.id] = {
         edit: false,
         data: { ...info }
       };
     }
   }
 
-  addNewUser() {
-
+  modifyUser(id: number) {
+    this.editCache[id].edit = true;
   }
 
-  modifyUser(key: string) {
-    this.editCache[key].edit = true;
+  saveModify(id: number) {
+    var userInfo = this.userInfos[this.userInfos.findIndex((item) => item.id === id)];
+    var editUserInfo = this.editCache[id];
+
+    var request: UpdateUserRolesRequest = {
+      id: editUserInfo.data.id,
+      roles: editUserInfo.data.roles,
+    };
+    this.userManageService.updateUserRoles(request).subscribe(
+      (response) => {
+        if (this.loginService.getLoginUser().email == userInfo.email) {
+          this.router.navigateByUrl("/login");
+          return;
+        }
+
+        Object.assign(userInfo, this.editCache[id].data);
+        this.editCache[id].edit = false;
+      },
+      (err) => {
+        if (err.status == 500) {
+          this.errMsg = "服务器内部错误";
+        } else if (err.status == 400) {
+          this.errMsg = "传递参数错误";
+        } else if (err.status == 401) {
+          this.router.navigateByUrl("/login");
+        } else {
+          this.errMsg = "未知错误: " + err.status + err.error.message;
+        }
+      });
   }
 
-  saveModify(key: string) {
-    const index = this.userInfos.findIndex(item => item.key === key);
-    Object.assign(this.userInfos[index], this.editCache[key].data);
-    this.editCache[key].edit = false;
+  cancelModify(id: number) {
+    this.editCache[id].edit = false;
   }
 
-  cancelModify(key: string) {
-    this.editCache[key].edit = false;
-  }
-
-  deleteUser(key: string) {
-    const dataSet = this.userInfos.filter(d => d.key !== key);
+  deleteUser(id: number) {
+    const dataSet = this.userInfos.filter(d => d.id !== id);
     this.userInfos = dataSet;
   }
 

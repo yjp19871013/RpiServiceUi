@@ -1,17 +1,22 @@
 import { User } from '../../login/login.model';
 
 export class UserInfo {
-    key: string;
-    email: string;
-    roles: string[];
-    createDate: string;
-    updateDate: string;
+  id: number;
+  email: string;
+  roles: string[];
+  createDate: string;
+  updateDate: string;
 }
 
 export class GetAllRolesResponse {
-    roles: string[];
+  roles: string[];
 }
 
 export class GetAllUsersResponse {
-    userInfos: UserInfo[];
+  userInfos: UserInfo[];
+}
+
+export class UpdateUserRolesRequest {
+  id: number;
+  roles: string[];
 }

@@ -1,38 +1,5 @@
 <div nz-row nzType="flex" nzJustify="center" class="title">
-  <h3>添加用户</h3>
-</div>
-
-<div nz-row nzType="flex" nzJustify="center">
-  <div nz-col nzSpan="5">
-    <form nz-form>
-      <nz-form-item>
-        <nz-form-control>
-          <input nz-input type="text" placeholder="请输入用户邮箱" name="email" autofocus="autofocus" [(ngModel)]="newUser.email" />
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-control>
-          <input nz-input type="password" placeholder="请输入密码" name="password" autofocus="autofocus" [(ngModel)]="newUser.password" />
-        </nz-form-control>
-      </nz-form-item>
-
-      <label>请选择角色：</label>
-      <nz-form-item>
-        <nz-form-control>
-          <nz-checkbox-wrapper (nzOnChange)="onRoleCheckChanged($event)">
-            <label nz-checkbox *ngFor="let role of roles" nzValue="{{ role }}">{{ role }}</label>
-          </nz-checkbox-wrapper>
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-control>
-          <button nz-button nzType="primary" nzBlock (click)="addNewUser()">添加</button>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-  </div>
+  <h3>当前用户</h3>
 </div>
 
 <div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''">
@@ -53,46 +20,41 @@
   </thead>
   <tbody>
     <tr *ngFor="let userInfo of userInfos">
+      <td>{{ userInfo.email }}</td>
       <td>
-        <ng-container *ngIf="!editCache[userInfo.key].edit">
-          {{ userInfo.email }}
-        </ng-container>
-        <ng-container *ngIf="editCache[userInfo.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[userInfo.key].data.email">
-        </ng-container>
-      </td>
-      <td>
-        <ng-container *ngIf="!editCache[userInfo.key].edit">
+        <ng-container *ngIf="!editCache[userInfo.id].edit">
           {{ userInfo.roles }}
         </ng-container>
-        <ng-container *ngIf="editCache[userInfo.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[userInfo.key].data.roles">
+        <ng-container *ngIf="editCache[userInfo.id].edit">
+          <nz-checkbox-wrapper (nzOnChange)="onRoleCheckChanged($event)">
+            <label nz-checkbox *ngFor="let role of roles" nzValue="{{ role }}" [ngModel]="userInfo.roles.includes(role)">{{ role }}</label>
+          </nz-checkbox-wrapper>
         </ng-container>
       </td>
       <td>{{ userInfo.createDate }}</td>
       <td>{{ userInfo.updateDate }}</td>
       <td>
-        <ng-container *ngIf="!editCache[userInfo.key].edit">
+        <ng-container *ngIf="!editCache[userInfo.id].edit">
           <div nz-row [nzGutter]="10">
             <div nz-col nzSpan="5">
-              <a (click)="modifyUser(userInfo.key)">修改</a>
+              <a (click)="modifyUser(userInfo.id)">修改</a>
             </div>
             <div nz-col nzSpan="5">
-              <nz-popconfirm [nzTitle]="'确定删除?'" (nzOnConfirm)="deleteUser(userInfo.key)">
+              <nz-popconfirm [nzTitle]="'确定删除?'" (nzOnConfirm)="deleteUser(userInfo.id)">
                 <a nz-popconfirm>删除</a>
               </nz-popconfirm>
             </div>
           </div>
         </ng-container>
-        <ng-container *ngIf="editCache[userInfo.key].edit">
+        <ng-container *ngIf="editCache[userInfo.id].edit">
           <div nz-row [nzGutter]="10">
             <div nz-col nzSpan="5">
-              <nz-popconfirm [nzTitle]="'保存?'" (nzOnConfirm)="saveModify(userInfo.key)">
+              <nz-popconfirm [nzTitle]="'保存?'" (nzOnConfirm)="saveModify(userInfo.id)">
                 <a nz-popconfirm>保存</a>
               </nz-popconfirm>
             </div>
             <div nz-col nzSpan="5">
-              <a (click)="cancelModify(userInfo.key)">取消</a>
+              <a (click)="cancelModify(userInfo.id)">取消</a>
             </div>
           </div>
         </ng-container>

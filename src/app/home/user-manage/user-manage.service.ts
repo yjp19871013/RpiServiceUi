@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginService } from '../../login/login.service';
 import { GetAllRolesResponse, GetAllUsersResponse } from './user-manage.model';
+import { UpdateUserRolesRequest } from './user-manage.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { GetAllRolesResponse, GetAllUsersResponse } from './user-manage.model';
 export class UserManageService {
 
   private getRolesUrl: string = "/api/users/roles";
-  private geUsersUrl: string = "/api/users";
+  private getUsersUrl: string = "/api/users";
+  private updateUserRolesUrl: string = "/api/users/roles";
 
   private authorizationHeaders = {
     headers: new HttpHeaders({
@@ -25,6 +27,10 @@ export class UserManageService {
   }
 
   getAllUsers(): Observable<GetAllUsersResponse> {
-    return this.http.get<GetAllUsersResponse>(this.geUsersUrl, this.authorizationHeaders);
+    return this.http.get<GetAllUsersResponse>(this.getUsersUrl, this.authorizationHeaders);
+  }
+
+  updateUserRoles(request: UpdateUserRolesRequest): Observable<any> {
+    return this.http.put<any>(this.updateUserRolesUrl, request, this.authorizationHeaders);
   }
 }
