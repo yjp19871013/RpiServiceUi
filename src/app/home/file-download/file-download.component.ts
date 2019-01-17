@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewFileDownloadTask, FileDownloadTask } from './file-download.model';
 import { FileDownloadService } from './file-download.service';
-import { Router } from '@angular/router';
+import { LoginService } from '../../login/login.service';
 
 @Component({
   selector: 'app-file-download',
@@ -22,7 +22,7 @@ export class FileDownloadComponent implements OnInit {
   private progressTimer: number;
 
   constructor(private fileDownloadService: FileDownloadService,
-    private router: Router) { }
+    private loginService: LoginService) { }
 
   ngOnInit() {
     this.fileDownloadService.getAllDownloadTasks().subscribe(
@@ -33,7 +33,7 @@ export class FileDownloadComponent implements OnInit {
         if (err.status == 500) {
           this.errMsg = "服务器内部错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -73,7 +73,7 @@ export class FileDownloadComponent implements OnInit {
           if (err.status == 400) {
             this.errMsg = "请求参数错误";
           } else if (err.status == 401) {
-            this.router.navigateByUrl("/login");
+            this.loginService.logout();
           } else if (err.status == 500) {
             this.errMsg = "服务器内部错误";
           } else {
@@ -107,7 +107,7 @@ export class FileDownloadComponent implements OnInit {
         if (err.status == 400) {
           this.errMsg = "请求参数错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else if (err.status == 409) {
           this.errMsg = "已存在";
         } else if (err.status == 500) {
@@ -129,7 +129,7 @@ export class FileDownloadComponent implements OnInit {
         if (err.status == 400) {
           this.errMsg = "请求参数错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else if (err.status == 500) {
           this.errMsg = "服务器内部错误";
         } else {

@@ -20,9 +20,14 @@ export class LoginService {
     return this.http.post<LoginResponse>(this.createTokenUrl, user);
   }
 
+  logout() {
+      this.jwtService.delete();
+      this.router.navigateByUrl("/login");
+  }
+
   getLoginUser(): User {
     if (!this.isLogin()) {
-      this.router.navigateByUrl("/login");
+      this.logout();
       return null;
     }
 
@@ -31,7 +36,7 @@ export class LoginService {
 
   getLoginToken(): string {
     if (!this.isLogin()) {
-      this.router.navigateByUrl("/login");
+      this.logout();
       return "";
     }
 

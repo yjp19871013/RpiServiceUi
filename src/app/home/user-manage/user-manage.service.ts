@@ -14,23 +14,32 @@ export class UserManageService {
   private getUsersUrl: string = "/api/users";
   private updateUserRolesUrl: string = "/api/users/roles";
 
-  private authorizationHeaders = {
-    headers: new HttpHeaders({
-      'Authorization': this.loginService.getLoginToken()
-    })
-  };
-
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   getAllRoles(): Observable<GetAllRolesResponse> {
-    return this.http.get<GetAllRolesResponse>(this.getRolesUrl, this.authorizationHeaders);
+    return this.http.get<GetAllRolesResponse>(this.getRolesUrl,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 
   getAllUsers(): Observable<GetAllUsersResponse> {
-    return this.http.get<GetAllUsersResponse>(this.getUsersUrl, this.authorizationHeaders);
+    return this.http.get<GetAllUsersResponse>(this.getUsersUrl,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 
   updateUserRoles(request: UpdateUserRolesRequest): Observable<any> {
-    return this.http.put<any>(this.updateUserRolesUrl, request, this.authorizationHeaders);
+    return this.http.put<any>(this.updateUserRolesUrl, request,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 }

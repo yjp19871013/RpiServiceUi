@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''">
+<div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''" style="margin: 5px">
   <div nz-col nzSpan="5">
     <nz-alert nzType="error" nzMessage="{{ errMsg }}"></nz-alert>
   </div>

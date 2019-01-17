@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileInfo } from './files.model';
 import { FilesService } from './files.service';
-import { Router } from '@angular/router';
+import { LoginService } from '../../login/login.service';
 
 @Component({
   selector: 'app-files',
@@ -14,7 +14,7 @@ export class FilesComponent implements OnInit {
 
   errMsg: string = ""
 
-  constructor(private filesService: FilesService, private router: Router) { }
+  constructor(private loginService: LoginService, private filesService: FilesService) { }
 
   ngOnInit() {
     this.filesService.getFileInfos().subscribe(
@@ -25,7 +25,7 @@ export class FilesComponent implements OnInit {
         if (err.status == 500) {
           this.errMsg = "服务器内部错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -43,7 +43,7 @@ export class FilesComponent implements OnInit {
         } else if (err.status == 400) {
           this.errMsg = "参数错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -61,7 +61,7 @@ export class FilesComponent implements OnInit {
         } else if (err.status == 400) {
           this.errMsg = "参数错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }

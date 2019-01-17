@@ -13,23 +13,32 @@ export class FilesService {
   private downloadFileUrl: string = "/api/file-station/download-proxy/files";
   private deleteFileUrl: string = "/api/file-station/download-proxy/files";
 
-  private authorizationHeaders = {
-    headers: new HttpHeaders({
-      'Authorization': this.loginService.getLoginToken()
-    })
-  };
-
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   getFileInfos(): Observable<GetFileInfoResponse> {
-      return this.http.get<GetFileInfoResponse>(this.getAllFilesUrl, this.authorizationHeaders);
+    return this.http.get<GetFileInfoResponse>(this.getAllFilesUrl,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 
   downloadFile(id: number): Observable<DownloadFileResponse> {
-      return this.http.get<DownloadFileResponse>(this.downloadFileUrl + "/" + id, this.authorizationHeaders);
+    return this.http.get<DownloadFileResponse>(this.downloadFileUrl + "/" + id,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 
   deleteFile(id: number): Observable<DeleteFileResponse> {
-      return this.http.delete<DeleteFileResponse>(this.deleteFileUrl + "/" + id, this.authorizationHeaders);
+    return this.http.delete<DeleteFileResponse>(this.deleteFileUrl + "/" + id,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 }

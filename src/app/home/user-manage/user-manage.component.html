@@ -2,7 +2,7 @@
   <h3>当前用户</h3>
 </div>
 
-<div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''">
+<div nz-row nzType="flex" nzJustify="center" *ngIf="errMsg != ''" style="margin: 5px">
   <div nz-col nzSpan="5">
     <nz-alert nzType="error" nzMessage="{{ errMsg }}"></nz-alert>
   </div>
@@ -26,7 +26,7 @@
           {{ userInfo.roles }}
         </ng-container>
         <ng-container *ngIf="editCache[userInfo.id].edit">
-          <nz-checkbox-wrapper (nzOnChange)="onRoleCheckChanged($event)">
+          <nz-checkbox-wrapper (nzOnChange)="onRoleCheckChanged($event, userInfo.id)">
             <label nz-checkbox *ngFor="let role of roles" nzValue="{{ role }}" [ngModel]="userInfo.roles.includes(role)">{{ role }}</label>
           </nz-checkbox-wrapper>
         </ng-container>

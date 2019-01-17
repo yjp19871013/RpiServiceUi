@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../login/login.model';
 import { UserManageService } from './user-manage.service';
 import { UserInfo, UpdateUserRolesRequest } from './user-manage.model';
-import { Router } from '@angular/router';
 import { LoginService } from '../../login/login.service';
 
 @Component({
@@ -27,11 +26,8 @@ export class UserManageComponent implements OnInit {
   editCache = {};
   userInfos: UserInfo[] = [];
 
-  private checkedRoles: string[] = [];
-
   constructor(private userManageService: UserManageService,
-    private loginService: LoginService,
-    private router: Router) { }
+    private loginService: LoginService) { }
 
   ngOnInit() {
     this.userManageService.getAllRoles().subscribe(
@@ -42,7 +38,7 @@ export class UserManageComponent implements OnInit {
         if (err.status == 500) {
           this.errMsg = "获取角色列表失败，服务器内部错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -69,7 +65,7 @@ export class UserManageComponent implements OnInit {
         if (err.status == 500) {
           this.errMsg = "获取用户列表失败，服务器内部错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -100,7 +96,7 @@ export class UserManageComponent implements OnInit {
     this.userManageService.updateUserRoles(request).subscribe(
       (response) => {
         if (this.loginService.getLoginUser().email == userInfo.email) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
           return;
         }
 
@@ -113,7 +109,7 @@ export class UserManageComponent implements OnInit {
         } else if (err.status == 400) {
           this.errMsg = "传递参数错误";
         } else if (err.status == 401) {
-          this.router.navigateByUrl("/login");
+          this.loginService.logout();
         } else {
           this.errMsg = "未知错误: " + err.status + err.error.message;
         }
@@ -129,9 +125,9 @@ export class UserManageComponent implements OnInit {
     this.userInfos = dataSet;
   }
 
-  onRoleCheckChanged(value: string[]) {
-    this.checkedRoles = value;
-    console.log(this.checkedRoles);
+  onRoleCheckChanged(value: string[], id: number) {
+    this.editCache[id].data.roles = value;
+    console.log(this.editCache[id].data.roles);
   }
 
 }

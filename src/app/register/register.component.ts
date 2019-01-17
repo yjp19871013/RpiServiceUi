@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidateCodeResquest, RegisterRequest } from './register.model';
 import { RegisterService } from './register.service';
-import { Router } from '@angular/router';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   errMsg = "";
 
   constructor(private registerService: RegisterService,
-    private router: Router) { }
+    private loginService: LoginService) { }
 
   ngOnInit() {
   }
@@ -81,7 +81,7 @@ export class RegisterComponent implements OnInit {
     this.registerService.register(this.registerRequest).subscribe(
       (response) => {
         this.errMsg = "";
-        this.router.navigateByUrl("/login");
+        this.loginService.logout();
       },
       (err) => {
         if (err.status == 400) {

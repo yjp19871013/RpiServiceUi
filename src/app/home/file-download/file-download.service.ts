@@ -27,15 +27,30 @@ export class FileDownloadService {
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   getAllDownloadTasks(): Observable<GetAllDownloadTasksResponse> {
-    return this.http.get<GetAllDownloadTasksResponse>(this.getAllDownloadTasksUrl, this.authorizationHeaders);
+    return this.http.get<GetAllDownloadTasksResponse>(this.getAllDownloadTasksUrl,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 
   addDownloadTask(newTask: NewFileDownloadTask): Observable<FileDownloadTask> {
-    return this.http.post<FileDownloadTask>(this.addDownloadTaskUrl, newTask, this.authorizationHeaders);
+    return this.http.post<FileDownloadTask>(this.addDownloadTaskUrl, newTask,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 
   deleteDownloadTask(id: number): Observable<DeleteFileDownloadTaskResponse> {
-    return this.http.delete<DeleteFileDownloadTaskResponse>(this.deleteDownloadTaskUrl + "/" + id, this.authorizationHeaders);
+    return this.http.delete<DeleteFileDownloadTaskResponse>(this.deleteDownloadTaskUrl + "/" + id,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 
   getProgress(ids: number[]): Observable<GetDownloadProgressResponse> {
@@ -44,6 +59,11 @@ export class FileDownloadService {
       params = params + item + ";";
     });
 
-    return this.http.get<GetDownloadProgressResponse>(this.getProgressUrl + "/" + escape(params.substring(0, params.length - 1)), this.authorizationHeaders);
+    return this.http.get<GetDownloadProgressResponse>(this.getProgressUrl + "/" + escape(params.substring(0, params.length - 1)),
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
   }
 }

@@ -12,6 +12,8 @@ export class JwtService {
   constructor() { }
 
   save(token: string, user: User) {
+    this.delete ();
+
     var curTime = new Date().getTime();
     localStorage[TOKEN_KEY] = JSON.stringify({ token: token, user: user, time: curTime });
   }
@@ -19,7 +21,7 @@ export class JwtService {
   get(): any {
     var tokenJson = localStorage.getItem(TOKEN_KEY);
     if (null == tokenJson) {
-        return null;
+      return null;
     }
 
     var tokenObj = JSON.parse(tokenJson);
@@ -28,5 +30,9 @@ export class JwtService {
     } else {
       return tokenObj;
     }
+  }
+
+  delete() {
+    localStorage.removeItem(TOKEN_KEY);
   }
 }

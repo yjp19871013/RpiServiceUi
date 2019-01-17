@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 })
 export class LoginGuard implements CanActivate {
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private loginService: LoginService) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.loginService.isLogin()) {
-        this.router.navigateByUrl("/login")
+        this.loginService.logout();
         return false;
     }
 

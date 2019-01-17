@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User, LoginResponse } from './login.model';
 import { LoginService } from './login.service';
-import { Router } from '@angular/router';
 import { JwtService } from './jwt.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
