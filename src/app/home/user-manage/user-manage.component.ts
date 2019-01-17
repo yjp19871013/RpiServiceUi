@@ -11,8 +11,6 @@ import { LoginService } from '../../login/login.service';
 })
 export class UserManageComponent implements OnInit {
 
-  noDataStr: string = "没有更多数据了";
-
   errMsg: string = "";
 
   roles: string[] = [];
