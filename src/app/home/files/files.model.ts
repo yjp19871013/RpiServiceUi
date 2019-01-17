@@ -1,18 +1,18 @@
 export class FileInfo {
-    id: number;
-    fileName: string;
-    completeDate: string;
-    sizeKb: number;
+  id: number;
+  fileName: string;
+  completeDate: string;
+  sizeKb: number;
 }
 
 export class GetFileInfoResponse {
-    fileInfos: FileInfo[];
+  fileInfos: FileInfo[];
 }
 
 export class DownloadFileResponse {
-    staticUrl: string;
+  staticUrl: string;
 }
 
 export class DeleteFileResponse {
-    id: number;
+  id: number;
 }
