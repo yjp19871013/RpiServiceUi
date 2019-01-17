@@ -17,4 +17,12 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  canShowUserManage(): boolean {
+    return this.loginService.isAdminRole(this.user.roles);
+  }
+
+  logout() {
+      this.loginService.logout();
+  }
 }

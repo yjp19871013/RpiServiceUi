@@ -13,6 +13,7 @@ export class UserManageService {
   private getRolesUrl: string = "/api/users/roles";
   private getUsersUrl: string = "/api/users";
   private updateUserRolesUrl: string = "/api/users/roles";
+  private deleteUserUrl: string = "/api/users";
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
@@ -36,6 +37,15 @@ export class UserManageService {
 
   updateUserRoles(request: UpdateUserRolesRequest): Observable<any> {
     return this.http.put<any>(this.updateUserRolesUrl, request,
+      {
+        headers: new HttpHeaders({
+          'Authorization': this.loginService.getLoginToken()
+        })
+      });
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete<any>(this.deleteUserUrl + "/" + id,
       {
         headers: new HttpHeaders({
           'Authorization': this.loginService.getLoginToken()

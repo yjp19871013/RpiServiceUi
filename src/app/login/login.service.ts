@@ -6,6 +6,7 @@ import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
 
 const USER_KEY = "user"
+const ADMIN_ROLE = "管理员"
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,8 @@ export class LoginService {
   }
 
   logout() {
-      this.jwtService.delete();
-      this.router.navigateByUrl("/login");
+    this.jwtService.delete();
+    this.router.navigateByUrl("/login");
   }
 
   getLoginUser(): User {
@@ -45,5 +46,9 @@ export class LoginService {
 
   isLogin(): boolean {
     return null != this.jwtService.get();
+  }
+
+  isAdminRole(roles: string[]): boolean {
+    return roles.includes(ADMIN_ROLE);
   }
 }

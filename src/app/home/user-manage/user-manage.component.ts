@@ -121,13 +121,38 @@ export class UserManageComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    const dataSet = this.userInfos.filter(d => d.id !== id);
-    this.userInfos = dataSet;
+    var userInfo = this.userInfos[this.userInfos.findIndex((item) => item.id === id)];
+    var adminUserCount = this.userInfos.filter((item) => this.loginService.isAdminRole(item.roles)).length;
+    if (adminUserCount == 1 && this.loginService.isAdminRole(userInfo.roles)) {
+      this.errMsg = "只有一个管理员用户，无法删除";
+      return;
+    }
+
+    this.userManageService.deleteUser(id).subscribe(
+      (response) => {
+        if (this.loginService.getLoginUser().email == userInfo.email) {
+          this.loginService.logout();
+          return;
+        }
+
+        const dataSet = this.userInfos.filter(d => d.id !== id);
+        this.userInfos = dataSet;
+      },
+      (err) => {
+        if (err.status == 500) {
+          this.errMsg = "服务器内部错误";
+        } else if (err.status == 400) {
+          this.errMsg = "传递参数错误";
+        } else if (err.status == 401) {
+          this.loginService.logout();
+        } else {
+          this.errMsg = "未知错误: " + err.status + err.error.message;
+        }
+      });
   }
 
   onRoleCheckChanged(value: string[], id: number) {
     this.editCache[id].data.roles = value;
-    console.log(this.editCache[id].data.roles);
   }
 
 }

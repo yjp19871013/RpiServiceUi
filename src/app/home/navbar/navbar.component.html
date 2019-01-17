@@ -1,6 +1,11 @@
 <ul nz-menu [nzMode]="'horizontal'" style="line-height: 64px;">
-  <li nz-menu-item>
-      <a routerLink="/file-download">树莓派服务系统</a>
+  <li nz-submenu>
+      <span title>树莓派服务系统</span>
+      <ul>
+          <li nz-menu-item>
+              <a (click)="logout()">注销</a>
+          </li>
+      </ul>
   </li>
 
   <li nz-submenu>
@@ -15,7 +20,7 @@
       </ul>
   </li>
 
-  <li nz-menu-item *ngIf="user.roles.includes('管理员')">
+  <li nz-menu-item *ngIf="canShowUserManage()">
     <a routerLink="/user-manage">用户管理</a>
   </li>
 </ul>
