@@ -24,7 +24,7 @@ export class UserManageComponent implements OnInit {
   };
 
   editCache = {};
-  userInfos: UserInfo[] = [];
+  userInfos: UserInfo[] = null;
 
   constructor(private userManageService: UserManageService,
     private loginService: LoginService) { }
@@ -46,6 +46,7 @@ export class UserManageComponent implements OnInit {
 
     this.userManageService.getAllUsers().subscribe(
       (response) => {
+        var userInfos: UserInfo[] = []
         response.userInfos.forEach((item) => {
           var info: UserInfo = {
             id: item.id,
@@ -55,11 +56,11 @@ export class UserManageComponent implements OnInit {
             updateDate: item.updateDate
           };
 
-          this.userInfos.push(info);
+          userInfos.push(info);
           this.addToEditCache(info);
         });
 
-        console.log(this.editCache);
+        this.userInfos = userInfos;
       },
       (err) => {
         if (err.status == 500) {

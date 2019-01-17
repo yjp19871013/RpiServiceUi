@@ -2,7 +2,7 @@
   <nz-alert nzType="error" nzMessage="{{ errMsg }}"></nz-alert>
 </div>
 
-<nz-table>
+<nz-table [nzData]="fileInfos">
   <thead>
     <tr>
       <th scope="col">文件名</th>

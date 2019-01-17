@@ -15,7 +15,7 @@ export class FileDownloadComponent implements OnInit {
     saveFilename: ""
   };
 
-  tasks: FileDownloadTask[] = [];
+  tasks: FileDownloadTask[] = null;
 
   errMsg: string = ""
 
@@ -63,7 +63,8 @@ export class FileDownloadComponent implements OnInit {
             });
 
             if (item.progress == 100) {
-              this.tasks.splice(index, 1)
+              const dataSet = this.tasks.filter(d => d.id !== item.id);
+              this.tasks = dataSet;
             } else {
               this.tasks[index].progress = item.progress;
             }
@@ -101,7 +102,11 @@ export class FileDownloadComponent implements OnInit {
         this.newTask.saveFilename = "";
 
         response.progress = 0;
-        this.tasks.push(response);
+
+        // 触发刷新数据集
+        var tasks: FileDownloadTask[] = [...this.tasks];
+        tasks.push(response);
+        this.tasks = tasks;
       },
       (err) => {
         if (err.status == 400) {
@@ -123,7 +128,8 @@ export class FileDownloadComponent implements OnInit {
 
     this.fileDownloadService.deleteDownloadTask(task.id).subscribe(
       (response) => {
-        this.tasks.splice(this.tasks.findIndex(item => item.id === response.id), 1)
+        const dataSet = this.tasks.filter(d => d.id !== task.id);
+        this.tasks = dataSet;
       },
       (err) => {
         if (err.status == 400) {

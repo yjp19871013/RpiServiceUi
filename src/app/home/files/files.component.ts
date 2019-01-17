@@ -10,7 +10,7 @@ import { LoginService } from '../../login/login.service';
 })
 export class FilesComponent implements OnInit {
 
-  fileInfos: FileInfo[] = [];
+  fileInfos: FileInfo[] = null;
 
   errMsg: string = ""
 
@@ -35,7 +35,8 @@ export class FilesComponent implements OnInit {
   deleteFile(info: FileInfo) {
     this.filesService.deleteFile(info.id).subscribe(
       (response) => {
-        this.fileInfos.splice(this.fileInfos.findIndex(item => item.id === response.id), 1)
+        const dataSet = this.fileInfos.filter(d => d.id !== info.id);
+        this.fileInfos = dataSet;
       },
       (err) => {
         if (err.status == 500) {
