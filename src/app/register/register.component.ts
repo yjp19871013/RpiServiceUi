@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    var emailPattern = /^[A-Za-z0-9\u4e00-\u9fa5.]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    const emailPattern = /^[A-Za-z0-9\u4e00-\u9fa5.]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
     if (!emailPattern.test(this.registerRequest.email)) {
       this.errMsg = "邮箱格式不正确";
       return;

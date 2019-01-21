@@ -46,7 +46,7 @@ export class FileDownloadComponent implements OnInit {
         return;
       }
 
-      var ids: number[] = [];
+      const ids: number[] = [];
       this.tasks.forEach((item, index) => {
         ids.push(item.id);
       });
@@ -57,8 +57,8 @@ export class FileDownloadComponent implements OnInit {
             return;
           }
 
-          response.progresses.forEach((item, index) => {
-            var index = this.tasks.findIndex(value => {
+          response.progresses.forEach((item) => {
+            const index = this.tasks.findIndex(value => {
               return value.id == item.id;
             });
 
@@ -104,7 +104,7 @@ export class FileDownloadComponent implements OnInit {
         response.progress = 0;
 
         // 触发刷新数据集
-        var tasks: FileDownloadTask[] = [...this.tasks];
+        const tasks: FileDownloadTask[] = [...this.tasks];
         tasks.push(response);
         this.tasks = tasks;
       },

@@ -14,17 +14,17 @@ export class JwtService {
   save(token: string, user: User) {
     this.delete ();
 
-    var curTime = new Date().getTime();
+    const curTime = new Date().getTime();
     localStorage[TOKEN_KEY] = JSON.stringify({ token: token, user: user, time: curTime });
   }
 
   get(): any {
-    var tokenJson = localStorage.getItem(TOKEN_KEY);
+    const tokenJson = localStorage.getItem(TOKEN_KEY);
     if (null == tokenJson) {
       return null;
     }
 
-    var tokenObj = JSON.parse(tokenJson);
+    const tokenObj = JSON.parse(tokenJson);
     if (new Date().getTime() - tokenObj.time > EXP) {
       localStorage.removeItem(TOKEN_KEY);
     } else {

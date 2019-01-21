@@ -44,9 +44,9 @@ export class UserManageComponent implements OnInit {
 
     this.userManageService.getAllUsers().subscribe(
       (response) => {
-        var userInfos: UserInfo[] = []
+        const userInfos: UserInfo[] = []
         response.userInfos.forEach((item) => {
-          var info: UserInfo = {
+          const info: UserInfo = {
             id: item.id,
             email: item.email,
             roles: item.roles,
@@ -85,10 +85,10 @@ export class UserManageComponent implements OnInit {
   }
 
   saveModify(id: number) {
-    var userInfo = this.userInfos[this.userInfos.findIndex((item) => item.id === id)];
-    var editUserInfo = this.editCache[id];
+    const userInfo = this.userInfos[this.userInfos.findIndex((item) => item.id === id)];
+    const editUserInfo = this.editCache[id];
 
-    var request: UpdateUserRolesRequest = {
+    const request: UpdateUserRolesRequest = {
       id: editUserInfo.data.id,
       roles: editUserInfo.data.roles,
     };
@@ -120,8 +120,8 @@ export class UserManageComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    var userInfo = this.userInfos[this.userInfos.findIndex((item) => item.id === id)];
-    var adminUserCount = this.userInfos.filter((item) => this.loginService.isAdminRole(item.roles)).length;
+    const userInfo = this.userInfos[this.userInfos.findIndex((item) => item.id === id)];
+    const adminUserCount = this.userInfos.filter((item) => this.loginService.isAdminRole(item.roles)).length;
     if (adminUserCount == 1 && this.loginService.isAdminRole(userInfo.roles)) {
       this.errMsg = "只有一个管理员用户，无法删除";
       return;
