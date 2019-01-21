@@ -45,7 +45,7 @@ export class FileDownloadService {
   }
 
   deleteDownloadTask(id: number): Observable<DeleteFileDownloadTaskResponse> {
-    return this.http.delete<DeleteFileDownloadTaskResponse>(this.deleteDownloadTaskUrl + "/" + id,
+    return this.http.delete<DeleteFileDownloadTaskResponse>(`${this.deleteDownloadTaskUrl}/${id}`,
       {
         headers: new HttpHeaders({
           'Authorization': this.loginService.getLoginToken()
@@ -59,7 +59,7 @@ export class FileDownloadService {
       params = params + item + ";";
     });
 
-    return this.http.get<GetDownloadProgressResponse>(this.getProgressUrl + "/" + escape(params.substring(0, params.length - 1)),
+    return this.http.get<GetDownloadProgressResponse>(`${this.getProgressUrl}/${escape(params.substring(0, params.length - 1))}`,
       {
         headers: new HttpHeaders({
           'Authorization': this.loginService.getLoginToken()

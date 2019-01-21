@@ -35,7 +35,7 @@ export class FileDownloadComponent implements OnInit {
         } else if (err.status == 401) {
           this.loginService.logout();
         } else {
-          this.errMsg = "未知错误: " + err.status + err.error.message;
+          this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
         }
       });
 
@@ -78,7 +78,7 @@ export class FileDownloadComponent implements OnInit {
           } else if (err.status == 500) {
             this.errMsg = "服务器内部错误";
           } else {
-            this.errMsg = "未知错误: " + err.status + err.error.message;
+            this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
           }
         });
     }, 5000);
@@ -118,7 +118,7 @@ export class FileDownloadComponent implements OnInit {
         } else if (err.status == 500) {
           this.errMsg = "服务器内部错误";
         } else {
-          this.errMsg = "未知错误: " + err.status + err.error.message;
+          this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
         }
       });
   }
@@ -139,7 +139,7 @@ export class FileDownloadComponent implements OnInit {
         } else if (err.status == 500) {
           this.errMsg = "服务器内部错误";
         } else {
-          this.errMsg = "未知错误: " + err.status + err.error.message;
+          this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
         }
       });
   }

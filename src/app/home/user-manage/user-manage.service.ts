@@ -45,7 +45,7 @@ export class UserManageService {
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete<any>(this.deleteUserUrl + "/" + id,
+    return this.http.delete<any>(`${this.deleteUserUrl}/${id}`,
       {
         headers: new HttpHeaders({
           'Authorization': this.loginService.getLoginToken()

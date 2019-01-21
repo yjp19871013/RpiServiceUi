@@ -38,7 +38,7 @@ export class UserManageComponent implements OnInit {
         } else if (err.status == 401) {
           this.loginService.logout();
         } else {
-          this.errMsg = "未知错误: " + err.status + err.error.message;
+          this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
         }
       });
 
@@ -66,7 +66,7 @@ export class UserManageComponent implements OnInit {
         } else if (err.status == 401) {
           this.loginService.logout();
         } else {
-          this.errMsg = "未知错误: " + err.status + err.error.message;
+          this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
         }
       });
   }
@@ -110,7 +110,7 @@ export class UserManageComponent implements OnInit {
         } else if (err.status == 401) {
           this.loginService.logout();
         } else {
-          this.errMsg = "未知错误: " + err.status + err.error.message;
+          this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
         }
       });
   }
@@ -145,7 +145,7 @@ export class UserManageComponent implements OnInit {
         } else if (err.status == 401) {
           this.loginService.logout();
         } else {
-          this.errMsg = "未知错误: " + err.status + err.error.message;
+          this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
         }
       });
   }

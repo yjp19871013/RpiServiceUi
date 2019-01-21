@@ -25,7 +25,7 @@ export class FilesService {
   }
 
   downloadFile(id: number): Observable<DownloadFileResponse> {
-    return this.http.get<DownloadFileResponse>(this.downloadFileUrl + "/" + id,
+    return this.http.get<DownloadFileResponse>(`${this.downloadFileUrl}/${id}`,
       {
         headers: new HttpHeaders({
           'Authorization': this.loginService.getLoginToken()
@@ -34,7 +34,7 @@ export class FilesService {
   }
 
   deleteFile(id: number): Observable<DeleteFileResponse> {
-    return this.http.delete<DeleteFileResponse>(this.deleteFileUrl + "/" + id,
+    return this.http.delete<DeleteFileResponse>(`${this.deleteFileUrl}/${id}`,
       {
         headers: new HttpHeaders({
           'Authorization': this.loginService.getLoginToken()

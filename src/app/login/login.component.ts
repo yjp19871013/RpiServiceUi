@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
           } else if (err.status == 500) {
             this.errMsg = "服务器内部错误";
           } else {
-            this.errMsg = "未知错误: " + err.status + err.error.message;
+            this.errMsg = `未知错误: ${err.status} ${err.error.message}`;
           }
         });
   }
