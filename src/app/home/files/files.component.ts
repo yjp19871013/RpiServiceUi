@@ -70,9 +70,9 @@ export class FilesComponent implements OnInit {
   }
 
   deleteAllFiles() {
-    this.fileInfos.forEach((item, index) => {
-      this.deleteFile(item);
-    });
+    for (let info of this.fileInfos) {
+      this.deleteFile(info);
+    }
   }
 
 }

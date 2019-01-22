@@ -55,9 +55,9 @@ export class FileDownloadService {
 
   getProgress(ids: number[]): Observable<GetDownloadProgressResponse> {
     let params = "";
-    ids.forEach((item, index) => {
-      params = params + item + ";";
-    });
+    for (let id of ids) {
+      params = params + id + ";";
+    }
 
     return this.http.get<GetDownloadProgressResponse>(`${this.getProgressUrl}/${escape(params.substring(0, params.length - 1))}`,
       {

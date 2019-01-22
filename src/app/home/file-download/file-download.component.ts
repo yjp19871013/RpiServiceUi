@@ -47,9 +47,9 @@ export class FileDownloadComponent implements OnInit {
       }
 
       const ids: number[] = [];
-      this.tasks.forEach((item, index) => {
-        ids.push(item.id);
-      });
+      for (let task of this.tasks) {
+        ids.push(task.id);
+      }
 
       this.fileDownloadService.getProgress(ids).subscribe(
         (response) => {
@@ -57,18 +57,18 @@ export class FileDownloadComponent implements OnInit {
             return;
           }
 
-          response.progresses.forEach((item) => {
+          for (let progress of response.progresses) {
             const index = this.tasks.findIndex(value => {
-              return value.id == item.id;
+              return value.id == progress.id;
             });
 
-            if (item.progress == 100) {
-              const dataSet = this.tasks.filter(d => d.id !== item.id);
+            if (progress.progress == 100) {
+              const dataSet = this.tasks.filter(d => d.id !== progress.id);
               this.tasks = dataSet;
             } else {
-              this.tasks[index].progress = item.progress;
+              this.tasks[index].progress = progress.progress;
             }
-          });
+          }
         },
         (err) => {
           if (err.status == 400) {

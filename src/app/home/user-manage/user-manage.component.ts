@@ -45,18 +45,10 @@ export class UserManageComponent implements OnInit {
     this.userManageService.getAllUsers().subscribe(
       (response) => {
         const userInfos: UserInfo[] = []
-        response.userInfos.forEach((item) => {
-          const info: UserInfo = {
-            id: item.id,
-            email: item.email,
-            roles: item.roles,
-            createDate: item.createDate,
-            updateDate: item.updateDate
-          };
-
-          userInfos.push(info);
-          this.addToEditCache(info);
-        });
+        for (let userInfo of response.userInfos) {
+          userInfos.push(userInfo);
+          this.addToEditCache(userInfo);
+        }
 
         this.userInfos = userInfos;
       },
