@@ -27,6 +27,7 @@ export class JwtService {
     const tokenObj = JSON.parse(tokenJson);
     if (new Date().getTime() - tokenObj.time > EXP) {
       localStorage.removeItem(TOKEN_KEY);
+      return null;
     } else {
       return tokenObj;
     }
