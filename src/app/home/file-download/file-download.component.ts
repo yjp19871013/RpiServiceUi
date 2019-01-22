@@ -46,11 +46,7 @@ export class FileDownloadComponent implements OnInit {
         return;
       }
 
-      const ids: number[] = [];
-      for (let task of this.tasks) {
-        ids.push(task.id);
-      }
-
+      const ids: number[] = Array.from(this.tasks, (item) => item.id);
       this.fileDownloadService.getProgress(ids).subscribe(
         (response) => {
           if (response.progresses.length == 0) {
@@ -104,9 +100,8 @@ export class FileDownloadComponent implements OnInit {
         response.progress = 0;
 
         // 触发刷新数据集
-        const tasks: FileDownloadTask[] = [...this.tasks];
-        tasks.push(response);
-        this.tasks = tasks;
+        this.tasks.push(response);
+        this.tasks = Array.from(this.tasks);
       },
       (err) => {
         if (err.status == 400) {

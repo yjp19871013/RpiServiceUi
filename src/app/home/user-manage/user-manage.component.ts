@@ -45,11 +45,8 @@ export class UserManageComponent implements OnInit {
     this.userManageService.getAllUsers().subscribe(
       (response) => {
         const userInfos: UserInfo[] = []
-        for (let userInfo of response.userInfos) {
-          userInfos.push(userInfo);
-          this.addToEditCache(userInfo);
-        }
-
+        this.addToEditCache(response.userInfos);
+        userInfos.push(...response.userInfos);
         this.userInfos = userInfos;
       },
       (err) => {
@@ -63,12 +60,14 @@ export class UserManageComponent implements OnInit {
       });
   }
 
-  addToEditCache(info: UserInfo) {
-    if (!this.editCache[info.id]) {
-      this.editCache[info.id] = {
-        edit: false,
-        data: { ...info }
-      };
+  addToEditCache(infos: UserInfo[]) {
+    for (let info of infos) {
+      if (!this.editCache[info.id]) {
+        this.editCache[info.id] = {
+          edit: false,
+          data: { ...info }
+        };
+      }
     }
   }
 
